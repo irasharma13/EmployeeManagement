@@ -15,7 +15,15 @@ export class EmployeeListComponent implements OnInit {
     private oauthService: OAuthService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const claims = this.oauthService.getIdentityClaims();
+
+    if (!claims) {
+      this.oauthService.initImplicitFlow();
+    } else {
+      console.log(claims);
+    }
+  }
 
   reloadData() {
     //this.customers = this.transactionService.getAll();
