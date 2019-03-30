@@ -23,9 +23,9 @@ import { routes } from './app.router';
 
 
 const config = {
-  issuer: 'https://dev-872814.oktapreview.com/oauth2/default',
+  issuer: 'https://dev-983347.okta.com/oauth2/default',
   redirectUri: 'http://localhost:4200/implicit/callback',
-  clientId: '0oak1em19xNQEpRkG0h7'
+  clientId: '0oael4x2cfpxJb1lw356'
 };
 
 @NgModule({
