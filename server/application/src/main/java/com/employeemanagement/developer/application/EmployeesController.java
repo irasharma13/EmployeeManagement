@@ -1,5 +1,5 @@
 //package com.greencrunch.developer.application.controller;
-package com.employeemanangement.developer.application;
+package com.employeemanagement.developer.application;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 // import org.springframework.data.domain.Page;
 // import org.springframework.data.domain.Pageable;
  
-import com.employeemanangement.developer.application.Employees;
-import com.employeemanangement.developer.application.EmployeesRepository;
+import com.employeemanagement.developer.application.Employees;
+import com.employeemanagement.developer.application.EmployeesRepository;
 
 
 @RestController

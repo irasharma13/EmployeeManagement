@@ -1,4 +1,4 @@
-package com.greencrunch.developer.application;
+package com.employeemanagement.developer.application;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,5 +1,5 @@
 //package com.greencrunch.developer.application.repo;
-package com.employeemanangement.developer.application;
+package com.employeemanagement.developer.application;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +11,7 @@ import java.util.List;
  
 import org.springframework.data.repository.CrudRepository;
  
-import com.employeemanangement.developer.application.Employees;
+import com.employeemanagement.developer.application.Employees;
 
 @RepositoryRestResource
 @CrossOrigin(origins = "http://localhost:4200")
