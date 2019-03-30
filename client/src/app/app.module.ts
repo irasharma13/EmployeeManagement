@@ -8,9 +8,9 @@ import { EmployeeService } from './services/employee/employee.service';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/okta/auth.interceptor';
-import { OAuthModule } from 'angular-oauth2-oidc';
+//import { OAuthModule } from 'angular-oauth2-oidc';
 
-
+import { OktaAuthModule } from '@okta/okta-angular';
 
 
 import { HttpClientModule } from '@angular/common/http';
@@ -22,7 +22,11 @@ import { routes } from './app.router';
 
 
 
-
+const config = {
+  issuer: 'https://dev-724223.oktapreview.com/oauth2/default',
+  redirectUri: 'http://localhost:4200/implicit/callback',
+  clientId: '0oaekodz4TDEcw7Y9356'
+};
 
 @NgModule({
   declarations: [
@@ -36,7 +40,13 @@ import { routes } from './app.router';
     routes,
     HttpModule,
     ReactiveFormsModule,
-    OAuthModule.forRoot(),
+    OktaAuthModule.initAuth(config)
+  //   OAuthModule.forRoot({
+  //     resourceServer: {
+  //         allowedUrls: ['http://www.angular.at/api'],
+  //         sendAccessToken: true
+  //     }
+  // }),
     
   ],
   providers: [
