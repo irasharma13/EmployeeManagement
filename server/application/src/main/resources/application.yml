@@ -4,13 +4,13 @@ server:
 security:
   oauth2:
     client:
-      access-token-uri: https://dev-558783.oktapreview.com/oauth2/default/v1/token
-      user-authorization-uri: https://dev-558783.oktapreview.com/oauth2/default/v1/authorize
-      client-id: 0oae5bt4guMx7iZZN356
+      access-token-uri: https://dev-872814.oktapreview.com/oauth2/default/v1/token
+      user-authorization-uri: https://dev-872814.oktapreview.com/oauth2/default/v1/authorize
+      client-id: 0oak1em19xNQEpRkG0h7
       scope: openid profile email
     resource:
-      user-info-uri: https://dev-558783.oktapreview.com/oauth2/default/v1/userinfo
-      token-info-uri: https://dev-558783.oktapreview.com/oauth2/default/v1/introspect
+      user-info-uri: https://dev-872814.oktapreview.com/oauth2/default/v1/userinfo
+      token-info-uri: https://dev-872814.oktapreview.com/oauth2/default/v1/introspect
       prefer-token-info: false
 
 spring:

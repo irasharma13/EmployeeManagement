@@ -25,6 +25,7 @@ export class EmployeeListComponent implements OnInit {
     // } else {
     //   console.log(claims);
     // }
+    this.reloadData();
   }
 
   // login() {

@@ -4,7 +4,7 @@ import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class EmployeeService {
-  public API = "http://localhost:8080";
+  public API = "http://localhost:8080/";
   public EMPLOYEES_API = this.API + "employees";
 
   constructor(private http: HttpClient) {}

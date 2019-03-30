@@ -29,7 +29,7 @@ import com.employeemanagement.developer.application.EmployeesRepository;
 
 
 @RestController
-//@RequestMapping("/transaction")
+@RequestMapping("/employees")
 class EmployeesController {
 
 	@Autowired
@@ -44,7 +44,7 @@ class EmployeesController {
 		
     }
 	
-    @GetMapping("employees/all")
+    @GetMapping("/employees/all")
     public List<Employees> getAllEmployees() {
 
 		System.out.println("Get all Emplyees");

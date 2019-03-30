@@ -23,26 +23,26 @@ export class AppComponent implements OnInit {
     // this.configureWithNewConfigApi();
   }
 
-  private configureWithNewConfigApi() {
-  //   this.oauthService.configure(authConfig);
-  //   this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-  //   this.oauthService.loadDiscoveryDocument().then(() =>{    
-  //     console.log('HERE');      
-  //     this.oauthService.tryLogin().then(_ =>{
-  //       console.log('HERE maybe');                        
-  //         if (!this.oauthService.hasValidIdToken() || !this.oauthService.hasValidAccessToken()) {
-  //           console.log('HERE 1');
-  //             this.oauthService.initImplicitFlow();
-  //          }
-  //          else{
-  //              //With Initial Routing turned off this allows the router to navigate in the 
-  //              //event of a page refresh, eg (F5).
-  //              console.log('HERE 2');
-  //              this.router.navigate(['/']);
-  //          }                  
-  //      })
-  //  });
-  }
+  // private configureWithNewConfigApi() {
+  // //   this.oauthService.configure(authConfig);
+  // //   this.oauthService.tokenValidationHandler = new JwksValidationHandler();
+  // //   this.oauthService.loadDiscoveryDocument().then(() =>{    
+  // //     console.log('HERE');      
+  // //     this.oauthService.tryLogin().then(_ =>{
+  // //       console.log('HERE maybe');                        
+  // //         if (!this.oauthService.hasValidIdToken() || !this.oauthService.hasValidAccessToken()) {
+  // //           console.log('HERE 1');
+  // //             this.oauthService.initImplicitFlow();
+  // //          }
+  // //          else{
+  // //              //With Initial Routing turned off this allows the router to navigate in the 
+  // //              //event of a page refresh, eg (F5).
+  // //              console.log('HERE 2');
+  // //              this.router.navigate(['/']);
+  // //          }                  
+  // //      })
+  // //  });
+  // }
 
   async ngOnInit() {
     this.isAuthenticated = await this.oktaAuth.isAuthenticated();
