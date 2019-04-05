@@ -54,6 +54,14 @@ class EmployeesController {
 		return employees;
     }
 
+	@PostMapping("employees/add")
+	public Employees insertEmployee(@RequestBody Employees employee) {
+
+		System.out.println("Prints the new employee: " + employee);
+		return repository.save(new Employees(employee.getEmp_no(), employee.getBirth_date(), employee.getFirst_name(), employee.getLast_name(), employee.getHire_date(), employee.getGender()))
+
+	}
+
 	// @GetMapping("transaction/bankacct/{email}")
     // public Integer getBankAcct(@PathVariable String email) {
 	// 	int acctnum = 0;
