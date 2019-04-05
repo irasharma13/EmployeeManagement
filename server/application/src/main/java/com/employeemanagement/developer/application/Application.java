@@ -22,6 +22,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @EnableResourceServer
 @SpringBootApplication
+// @EnableOAuth2Sso
 public class Application {
 
     public static void main(String[] args) {
@@ -33,8 +34,7 @@ public class Application {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.authorizeRequests()  
-            .anyRequest().authenticated();
+            http.authorizeRequests().anyRequest().authenticated();
         }
     }
     /*

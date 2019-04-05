@@ -10,6 +10,7 @@ export class EmployeeService {
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<any> {
+    console.log('here');
     return this.http.get(this.EMPLOYEES_API + "/all");
     //return this.http.get(this.API + '/all');
   }

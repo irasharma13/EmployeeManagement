@@ -1,4 +1,5 @@
-<button (click)='oktaAuth.loginRedirect()'>LOGIN</button>
+<button *ngIf = '!isAuthenticated' (click)='oktaAuth.loginRedirect()'>LOGIN</button>
+<button *ngIf = 'isAuthenticated' (click)='oktaAuth.logout()'>LOGOUT</button>
 
 <table class="table table-striped table-dark">
     <thead>

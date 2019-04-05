@@ -12,12 +12,13 @@ import { OktaAuthService } from '@okta/okta-angular';
 })
 export class EmployeeListComponent implements OnInit {
   employees: Employee[];
+  isAuthenticated: boolean;
   constructor(private oktaAuth: OktaAuthService,
     private employeeService: EmployeeService,
     // private oauthService: OAuthService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     // const claims = this.oauthService.getIdentityClaims();
 
     // if (!claims) {
@@ -25,7 +26,21 @@ export class EmployeeListComponent implements OnInit {
     // } else {
     //   console.log(claims);
     // }
-    this.reloadData();
+    this.isAuthenticated = await this.oktaAuth.isAuthenticated();
+    console.log('here 4');
+    if(this.isAuthenticated) { 
+      console.log('here 2');
+      this.reloadData();
+    }
+
+    // Subscribe to authentication state changes
+    this.oktaAuth.$authenticationState.subscribe(
+      (isAuthenticated: boolean)  => {
+        console.log('here 3');
+        this.isAuthenticated = isAuthenticated;
+      }
+    );
+    
   }
 
   // login() {
@@ -36,6 +51,6 @@ export class EmployeeListComponent implements OnInit {
     //this.customers = this.transactionService.getAll();
     this.employeeService
       .getAll()
-      .subscribe(employees => (this.employees = employees));
+      .subscribe(employees => {this.employees = employees; console.log('here 1');});
   }
 }

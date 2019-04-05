@@ -25,7 +25,8 @@ import { routes } from './app.router';
 const config = {
   issuer: 'https://dev-983347.okta.com/oauth2/default',
   redirectUri: 'http://localhost:4200/implicit/callback',
-  clientId: '0oael4x2cfpxJb1lw356'
+  clientId: '0oael4x2cfpxJb1lw356',
+  scope: 'openid profile email'
 };
 
 @NgModule({
