@@ -1,0 +1,4 @@
+<form class="search" [formGroup]="searchForm" (ngSubmit) = "search()">
+    <input type="text" placeholder="Search for employees in a department by the department's name" name="search_dept" formControlName='search_dept' required>
+    <button type="submit"><i class="fa fa-search"></i></button>
+</form>

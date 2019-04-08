@@ -1,1 +1,35 @@
-<router-outlet></router-outlet>
+<app-navbar></app-navbar>
+<main>
+
+    <input id="tab1" type="radio" name="tabs" checked>
+    <label for="tab1">All Employees</label>
+    
+    <input id="tab2" type="radio" name="tabs">
+    <label for="tab2">By Department</label>
+    
+    <input id="tab3" type="radio" name="tabs">
+    <label for="tab3">By Manager</label>
+    
+    <input id="tab4" type="radio" name="tabs">
+    <label for="tab4">By Title</label>
+    
+    <!-- All Employees-->
+    <section id="content1">
+        <app-employee-list></app-employee-list>
+    </section>
+    
+    <!-- Department -->
+    <section id="content2">
+        <app-department></app-department>
+    </section>
+    
+    <section id="content3">
+        <app-manager></app-manager>
+    </section>
+    
+    <section id="content4">
+        <app-title></app-title>
+    </section>
+          
+</main>
+<app-footer></app-footer>

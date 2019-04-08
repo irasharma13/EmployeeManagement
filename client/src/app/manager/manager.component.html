@@ -1,0 +1,4 @@
+<form class="search" [formGroup]="searchForm" (ngSubmit) = "search()">
+    <input type="text" placeholder="Check if a employee is a manager by his/her name" name="search_manager" formControlName='search_manager' required>
+    <button type="submit"><i class="fa fa-search"></i></button>
+</form>

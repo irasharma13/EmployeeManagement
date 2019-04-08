@@ -19,6 +19,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 // Routes
 import { routes } from './app.router';
+import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
+import { DepartmentComponent } from './department/department.component';
+import { ManagerComponent } from './manager/manager.component';
+import { TitleComponent } from './title/title.component';
 
 
 
@@ -32,7 +37,12 @@ const config = {
 @NgModule({
   declarations: [
     AppComponent,
-    EmployeeListComponent
+    EmployeeListComponent,
+    NavbarComponent,
+    FooterComponent,
+    DepartmentComponent,
+    ManagerComponent,
+    TitleComponent
   ],
   imports: [
     BrowserModule,
