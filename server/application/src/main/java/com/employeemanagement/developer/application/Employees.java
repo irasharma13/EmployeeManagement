@@ -32,7 +32,7 @@ public class Employees implements Serializable {
 
     private @NonNull String gender;
 
-    public Employees(int emp_no, Date birth_date, String first_name, String last_name, Date hire_date, Gender gender) {
+    public Employees(int emp_no, Date birth_date, String first_name, String last_name, Date hire_date, String gender) {
 
         this.emp_no = emp_no;
         this.birth_date = birth_date;

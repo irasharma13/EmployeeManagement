@@ -15,18 +15,16 @@ export class NavbarComponent implements OnInit {
   async ngOnInit() {
     this.isAuthenticated = await this.oktaAuth.isAuthenticated();
     if(this.isAuthenticated) { 
-      // this.reloadData();
+      //this.reloadData();
     } else {
-      this.oktaAuth.loginRedirect();
+      //this.oktaAuth.loginRedirect();
     }
 
     // Subscribe to authentication state changes. If user gets logged out, redirect to the login screen.
     this.oktaAuth.$authenticationState.subscribe(
       (isAuthenticated: boolean)  => {
         this.isAuthenticated = isAuthenticated;
-        if(!this.isAuthenticated) {
-          this.oktaAuth.loginRedirect();
-        }
+    
       }
     );
   }

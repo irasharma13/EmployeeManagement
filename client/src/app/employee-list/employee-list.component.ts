@@ -53,7 +53,9 @@ export class EmployeeListComponent implements OnInit {
     this.isAuthenticated = await this.oktaAuth.isAuthenticated();
     if(this.isAuthenticated) { 
       this.reloadData();
-    } 
+    } else {
+      //this.oktaAuth.loginRedirect();
+    }
     
   }
 
@@ -96,7 +98,7 @@ export class EmployeeListComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         document.getElementById('id01').style.display='none';
-        window.location.reload(true);
+        //window.location.reload(true);
       }, error => console.log(error));
     
   }
@@ -115,7 +117,7 @@ export class EmployeeListComponent implements OnInit {
     this.employeeService.updateEmployee(id, employee)
     .subscribe(
       data => {
-        console.log(data);window.location.reload(true);
+        console.log(data);//window.location.reload(true);
       },
       error => console.log(error));
     
