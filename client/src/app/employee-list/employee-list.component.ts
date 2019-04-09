@@ -50,12 +50,12 @@ export class EmployeeListComponent implements OnInit {
       hire_date: new FormControl('', Validators.required)
     });
 
-    this.isAuthenticated = await this.oktaAuth.isAuthenticated();
-    if(this.isAuthenticated) { 
+    // this.isAuthenticated = await this.oktaAuth.isAuthenticated();
+    // if(this.isAuthenticated) { 
       this.reloadData();
-    } else {
-      //this.oktaAuth.loginRedirect();
-    }
+    // } else {
+    //   //this.oktaAuth.loginRedirect();
+    // }
     
   }
 

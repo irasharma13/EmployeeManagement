@@ -13,20 +13,20 @@ export class NavbarComponent implements OnInit {
   constructor(private oktaAuth: OktaAuthService) { }
 
   async ngOnInit() {
-    this.isAuthenticated = await this.oktaAuth.isAuthenticated();
-    if(this.isAuthenticated) { 
-      //this.reloadData();
-    } else {
-      //this.oktaAuth.loginRedirect();
-    }
+    // this.isAuthenticated = await this.oktaAuth.isAuthenticated();
+    // if(this.isAuthenticated) { 
+    //   //this.reloadData();
+    // } else {
+    //   //this.oktaAuth.loginRedirect();
+    // }
 
-    // Subscribe to authentication state changes. If user gets logged out, redirect to the login screen.
-    this.oktaAuth.$authenticationState.subscribe(
-      (isAuthenticated: boolean)  => {
-        this.isAuthenticated = isAuthenticated;
+    // // Subscribe to authentication state changes. If user gets logged out, redirect to the login screen.
+    // this.oktaAuth.$authenticationState.subscribe(
+    //   (isAuthenticated: boolean)  => {
+    //     this.isAuthenticated = isAuthenticated;
     
-      }
-    );
+    //   }
+    // );
   }
 
 }
