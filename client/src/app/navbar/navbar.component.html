@@ -1,8 +1,8 @@
 <div id='navbar'>
 
-  <span id='name'>Website Name</span>
-  <button id='btn-logout' (click)='oktaAuth.loginRedirect();'>LOG IN</button>
+  <span id='name'>Employee Portal</span>
+  <!-- <button *ngIf="!givenName"  id='btn-logout' (click)="login()">LOG IN</button> -->
 
-  <button id='btn-logout' (click)='oktaAuth.logout()'>SIGN OUT</button>
+  <button *ngIf="givenName" class='btn-logout' (click)='logout()'>SIGN OUT</button>
   
 </div>

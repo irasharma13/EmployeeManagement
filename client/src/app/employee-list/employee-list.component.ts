@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { EmployeeService } from "../services/employee/employee.service";
 import { Employee } from "../models/employee";
 import { OktaAuthService } from '@okta/okta-angular';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: "app-employee-list",
@@ -21,7 +22,7 @@ export class EmployeeListComponent implements OnInit {
   editForm: FormGroup;
   searchForm: FormGroup;
 
-  constructor(private oktaAuth: OktaAuthService,
+  constructor(private oauthService: OAuthService, //private oktaAuth: OktaAuthService,
     private employeeService: EmployeeService,
     private fb: FormBuilder
   ) {}
@@ -49,13 +50,32 @@ export class EmployeeListComponent implements OnInit {
       gender: new FormControl('', Validators.required),
       hire_date: new FormControl('', Validators.required)
     });
-
+    // this.isAuthenticated = true;
     // this.isAuthenticated = await this.oktaAuth.isAuthenticated();
+    // console.log(this.isAuthenticated);
     // if(this.isAuthenticated) { 
+    //   this.reloadData();
+    // } //else {
+    // //   //this.oktaAuth.loginRedirect();
+    // // }
+
+    // this.oktaAuth.$authenticationState.subscribe(
+    //   (isAuthenticated: boolean)  => {
+    //     this.isAuthenticated = isAuthenticated;
+    //     console.log(this.isAuthenticated);
+    //     if(this.isAuthenticated) { 
+    //       this.reloadData();
+    //     } //else {
+    //     //   //this.oktaAuth.loginRedirect();
+    //     // }
+    
+    //   });
+    const claims = this.oauthService.getIdentityClaims();
+    if (!claims) {
+      alert('An error occured');
+    } else {
       this.reloadData();
-    // } else {
-    //   //this.oktaAuth.loginRedirect();
-    // }
+    }
     
   }
 
@@ -76,9 +96,10 @@ export class EmployeeListComponent implements OnInit {
   get search_emp() { return this.searchForm.get('search_emp') }
 
   reloadData() {
+    console.log('Retreiving employee data');
     this.employeeService
       .getAll()
-      .subscribe(employees => {this.employees = employees; console.log('here 1');});
+      .subscribe(employees => {this.employees = employees;});
   }
 
   add() {

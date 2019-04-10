@@ -8,9 +8,9 @@ import { EmployeeService } from './services/employee/employee.service';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './services/okta/auth.interceptor';
-//import { OAuthModule } from 'angular-oauth2-oidc';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
-import { OktaAuthModule } from '@okta/okta-angular';
+//import { OktaAuthModule } from '@okta/okta-angular';
 
 
 import { HttpClientModule } from '@angular/common/http';
@@ -24,6 +24,7 @@ import { FooterComponent } from './footer/footer.component';
 import { DepartmentComponent } from './department/department.component';
 import { ManagerComponent } from './manager/manager.component';
 import { TitleComponent } from './title/title.component';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -42,7 +43,8 @@ const config = {
     FooterComponent,
     DepartmentComponent,
     ManagerComponent,
-    TitleComponent
+    TitleComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,8 @@ const config = {
     routes,
     HttpModule,
     ReactiveFormsModule,
-    OktaAuthModule.initAuth(config)
+    OAuthModule.forRoot()
+    // OktaAuthModule.initAuth(config)
   //   OAuthModule.forRoot({
   //     resourceServer: {
   //         allowedUrls: ['http://www.angular.at/api'],

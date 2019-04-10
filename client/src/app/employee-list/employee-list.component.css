@@ -62,6 +62,16 @@ label {
     background-color: #f2f2f2;
     padding: 20px;
 }
+
+.add {
+    color: gray; 
+    font-size: 24px; 
+    cursor: pointer;
+}
+
+.add:hover {
+    color:black;
+}
   
 .col-25 {
     float: left;

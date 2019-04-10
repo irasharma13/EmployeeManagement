@@ -4,7 +4,7 @@
     box-sizing:border-box;
 }
 
-html,body{height:100vh;}
+html,body{width: 100%; overflow-x: hidden;}
 
 body{
     display:flex;
@@ -27,6 +27,31 @@ main {
   box-shadow: 0 1px 3px rgba(0,0,0,.1);
   width: 100%;
   border-bottom: 0px;
+  height: 90vh;
+}
+
+#home {
+  background: linear-gradient(300deg, #0081ff, #6fd1ff, #0081ff);
+  background-size: 600% 600%;
+  -webkit-animation: HomeBackground 21s ease infinite;
+  -moz-animation: HomeBackground 21s ease infinite;
+  animation: HomeBackground 21s ease infinite;
+}
+
+@-webkit-keyframes HomeBackground {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes HomeBackground {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes HomeBackground { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
 }
 
 section {

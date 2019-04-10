@@ -1,0 +1,36 @@
+h1{
+    color: white; 
+    font-family: "Courier";
+    white-space: nowrap;
+    overflow: hidden;
+    width: 20em;
+    animation: type 4s steps(60, end); 
+    margin-left: 35%;
+    margin-top:7%;
+    font-size: 5em;
+}
+
+h1:nth-child(2){
+    animation: type2 9s steps(60, end);
+}
+
+
+@keyframes type{ 
+    from { width: 0; } 
+} 
+
+@keyframes type2{
+    0%{width: 0;}
+    50%{width: 0;}
+    100%{ width: 100; } 
+} 
+
+::selection{
+    background: black;
+}
+
+#login {
+    margin-right: 46%;
+    font-size: 24px;
+    padding:10px 25px;
+}
