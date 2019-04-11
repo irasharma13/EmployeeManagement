@@ -118,8 +118,8 @@ export class EmployeeListComponent implements OnInit {
     this.employeeService.addEmployee(employee)
       .subscribe(data => {
         console.log(data);
-        document.getElementById('id01').style.display='none';
-        //window.location.reload(true);
+        document.getElementById('add-modal').style.display='none';
+        window.location.reload(true);
       }, error => console.log(error));
     
   }
@@ -127,18 +127,19 @@ export class EmployeeListComponent implements OnInit {
   edit(id:number) {
     console.log("Employee id is: "+id);
     var employee = new Employee();
-    employee.emp_no = this.edit_emp_no.value;
+    employee.emp_no = id;
     employee.birth_date = this.edit_birth_date.value;
     employee.first_name = this.edit_first_name.value;
     employee.last_name = this.edit_last_name.value;
     employee.gender = this.edit_gender.value;
     employee.hire_date = this.edit_hire_date.value;
 
-    console.log("Editing transaction");
+    console.log("Editing employee");
     this.employeeService.updateEmployee(id, employee)
     .subscribe(
       data => {
-        console.log(data);//window.location.reload(true);
+        console.log(data);
+        window.location.reload(true);
       },
       error => console.log(error));
     

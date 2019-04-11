@@ -62,6 +62,27 @@ class EmployeesController {
 
 	}
 
+	@PutMapping("employees/update/{id}")
+	public Employees updateEmployee(@PathVariable("id") Integer id, @RequestBody Employees employee) {
+		System.out.println("Finding employee with id: " + id);
+		Optional<Employees> employeeOp = repository.findById(id);
+
+		if(employeeOp.isPresent()) {
+			Employees _employee = employeeOp.get();
+			System.out.println("Found employee: " + _employee);
+			_employee.setBirth_date(employee.getBirth_date());
+			_employee.setFirst_name(employee.getFirst_name());
+			_employee.setLast_name(employee.getLast_name());
+			_employee.setHire_date(employee.getHire_date());
+			_employee.setGender(employee.getGender());
+		}
+
+		System.out.println("Updating Employee to: "+_employee);
+            return new ResponseEntity<>(repository.save(_employee), HttpStatus.OK);
+        } 
+        System.out.println("Failed to find transaction with id: "+ id);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
 	// @GetMapping("transaction/bankacct/{email}")
     // public Integer getBankAcct(@PathVariable String email) {
 	// 	int acctnum = 0;
