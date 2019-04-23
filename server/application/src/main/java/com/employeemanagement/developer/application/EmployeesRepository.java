@@ -17,5 +17,5 @@ import com.employeemanagement.developer.application.Employees;
 public interface EmployeesRepository extends CrudRepository<Employees, Integer> {
 
 	List<Employees> findByEmpNo(int empNo);
-
+	List<Employees> findByLastName(String lastName);
 }

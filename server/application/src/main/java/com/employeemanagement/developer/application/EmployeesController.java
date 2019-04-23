@@ -86,6 +86,21 @@ class EmployeesController {
         System.out.println("Failed to find transaction with id: "+ id);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
+
+	@GetMapping("employees/search/employee/{emp_name}")
+	public ResponseEntity<List<Employees>> searchEmployee (@PathVariable("emp_name") String emp_name){
+		System.out.println("Finding employee with last name: " + emp_name);
+		List<Employees> employees = repository.findByLastName(emp_name);
+		 
+		if(employees.size() == 0){
+			System.out.println("Failed to find transaction with last name: "+ emp_name);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		else{
+			return new ResponseEntity<>(employees, HttpStatus.OK);
+		}
+	}
+
 	// @GetMapping("transaction/bankacct/{email}")
     // public Integer getBankAcct(@PathVariable String email) {
 	// 	int acctnum = 0;
