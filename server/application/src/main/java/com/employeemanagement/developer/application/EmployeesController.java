@@ -58,28 +58,31 @@ class EmployeesController {
 	public Employees insertEmployee(@RequestBody Employees employee) {
 
 		System.out.println("Prints the new employee: " + employee);
-		return repository.save(new Employees(employee.getEmp_no(), employee.getBirth_date(), employee.getFirst_name(), employee.getLast_name(), employee.getHire_date(), employee.getGender()));
+		return repository.save(new Employees(employee.getEmpNo(), employee.getBirth_date(), employee.getFirst_name(), employee.getLastName(), employee.getHire_date(), employee.getGender()));
 
 	}
 
 	@PutMapping("employees/update/{id}")
-	public Employees updateEmployee(@PathVariable("id") Integer id, @RequestBody Employees employee) {
+	public ResponseEntity<Employees> updateEmployee(@PathVariable("id") Integer id, @RequestBody Employees employee) {
 		System.out.println("Finding employee with id: " + id);
-		Optional<Employees> employeeOp = repository.findById(id);
+		// Employees _employee = repository.findByEmployeesEmpNo(id);
 
-		if(employeeOp.isPresent()) {
-			Employees _employee = employeeOp.get();
+		List<Employees> employees = repository.findByEmpNo(id);
+		Employees _employee = employees.get(0);
+		if(_employee != null) {
+			// Employees _employee = employeeOp.get();
 			System.out.println("Found employee: " + _employee);
 			_employee.setBirth_date(employee.getBirth_date());
 			_employee.setFirst_name(employee.getFirst_name());
-			_employee.setLast_name(employee.getLast_name());
+			_employee.setLastName(employee.getLastName());
 			_employee.setHire_date(employee.getHire_date());
 			_employee.setGender(employee.getGender());
+
+			System.out.println("Updating Employee to: "+_employee);
+            return new ResponseEntity<>(repository.save(_employee), HttpStatus.OK);
 		}
 
-		System.out.println("Updating Employee to: "+_employee);
-            return new ResponseEntity<>(repository.save(_employee), HttpStatus.OK);
-        } 
+
         System.out.println("Failed to find transaction with id: "+ id);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}

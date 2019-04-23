@@ -20,24 +20,27 @@ enum Gender
 @ToString /// @EqualsAndHashCode <--- THIS THING CAN CAUSE THE INFINITE LOOP
 public class Employees implements Serializable {
     @Id
-    private @NonNull int emp_no;
+    @Column(name="emp_no")
+    private @NonNull int empNo;
 
     private @NonNull Date birth_date;
   
     private @NonNull String first_name;
-    private @NonNull String last_name;
+    
+    @Column (name="last_name")
+    private @NonNull String lastName;
 
 
     private @NonNull Date hire_date;
 
     private @NonNull String gender;
 
-    public Employees(int emp_no, Date birth_date, String first_name, String last_name, Date hire_date, String gender) {
+    public Employees(int empNo, Date birth_date, String first_name, String lastName, Date hire_date, String gender) {
 
-        this.emp_no = emp_no;
+        this.empNo = empNo;
         this.birth_date = birth_date;
         this.first_name = first_name;
-        this.last_name = last_name;
+        this.lastName = lastName;
         this.hire_date = hire_date;
         this.gender = gender;
     }

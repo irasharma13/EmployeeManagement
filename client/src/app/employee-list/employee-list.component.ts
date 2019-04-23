@@ -34,19 +34,19 @@ export class EmployeeListComponent implements OnInit {
     });
 
     this.editForm = this.fb.group({
-      edit_emp_no: new FormControl('', Validators.required),
+      edit_empNo: new FormControl('', Validators.required),
       edit_birth_date: new FormControl('', Validators.required),
       edit_first_name: new FormControl('', Validators.required),
-      edit_last_name: new FormControl('', Validators.required),
+      edit_lastName: new FormControl('', Validators.required),
       edit_gender: new FormControl('', Validators.required),
       edit_hire_date: new FormControl('', Validators.required)
     });
     
     this.addForm = this.fb.group({
-      emp_no: new FormControl('', Validators.required),
+      empNo: new FormControl('', Validators.required),
       birth_date: new FormControl('', Validators.required),
       first_name: new FormControl('', Validators.required),
-      last_name: new FormControl('', Validators.required),
+      lastName: new FormControl('', Validators.required),
       gender: new FormControl('', Validators.required),
       hire_date: new FormControl('', Validators.required)
     });
@@ -79,17 +79,17 @@ export class EmployeeListComponent implements OnInit {
     
   }
 
-  get edit_emp_no() { return this.editForm.get('edit_emp_no') }
+  get edit_empNo() { return this.editForm.get('edit_empNo') }
   get edit_birth_date() { return this.editForm.get('edit_birth_date') }
   get edit_first_name() { return this.editForm.get('edit_first_name') }
-  get edit_last_name() { return this.editForm.get('edit_last_name') }
+  get edit_lastName() { return this.editForm.get('edit_lastName') }
   get edit_gender() { return this.editForm.get('edit_gender') }
   get edit_hire_date() { return this.editForm.get('edit_hire_date') }
 
-  get emp_no() { return this.addForm.get('emp_no') }
+  get empNo() { return this.addForm.get('empNo') }
   get birth_date() { return this.addForm.get('birth_date') }
   get first_name() { return this.addForm.get('first_name') }
-  get last_name() { return this.addForm.get('last_name') }
+  get lastName() { return this.addForm.get('lastName') }
   get gender() { return this.addForm.get('gender') }
   get hire_date() { return this.addForm.get('hire_date') }
 
@@ -107,10 +107,10 @@ export class EmployeeListComponent implements OnInit {
     console.log("Trying to add new employee");
 
     var employee = new Employee();
-    employee.emp_no = this.emp_no.value;
+    employee.empNo = this.empNo.value;
     employee.birth_date = this.birth_date.value;
     employee.first_name = this.first_name.value;
-    employee.last_name = this.last_name.value;
+    employee.lastName = this.lastName.value;
     employee.gender = this.gender.value;
     employee.hire_date = this.hire_date.value;
 
@@ -127,10 +127,10 @@ export class EmployeeListComponent implements OnInit {
   edit(id:number) {
     console.log("Employee id is: "+id);
     var employee = new Employee();
-    employee.emp_no = id;
+    employee.empNo = id;
     employee.birth_date = this.edit_birth_date.value;
     employee.first_name = this.edit_first_name.value;
-    employee.last_name = this.edit_last_name.value;
+    employee.lastName = this.edit_lastName.value;
     employee.gender = this.edit_gender.value;
     employee.hire_date = this.edit_hire_date.value;
 

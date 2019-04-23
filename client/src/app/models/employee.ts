@@ -1,8 +1,8 @@
 export class Employee {
-  emp_no: number;
+  empNo: number;
   birth_date: Date;
   first_name: String;
-  last_name: String;
+  lastName: String;
   gender: String;
   hire_date: number;
 }
