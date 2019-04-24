@@ -27,18 +27,89 @@
     <tbody>
 
         <tr *ngFor="let employee of employees">
-            <td *ngIf="!isEdit || checkID != employee.empNo" >{{employee.empNo}}</td>
-            <td *ngIf="!isEdit || checkID != employee.empNo" >{{employee.birth_date}}</td>
-            <td *ngIf="!isEdit || checkID != employee.empNo" >{{employee.first_name}}</td>
-            <td *ngIf="!isEdit || checkID != employee.empNo" >{{employee.lastName}}</td>
-            <td *ngIf="!isEdit || checkID != employee.empNo" >{{employee.gender}}</td>
-            <td *ngIf="!isEdit || checkID != employee.empNo" >{{employee.hire_date}}</td>
-            <td *ngIf="!isEdit || checkID != employee.empNo" (click)="isEdit=true;checkID=employee.empNo;" style="width: 40px; height: 40px; text-align: center; font-size: 20px;">
+            <td>{{employee.empNo}}</td>
+            <td>{{employee.birth_date}}</td>
+            <td>{{employee.first_name}}</td>
+            <td>{{employee.lastName}}</td>
+            <td>{{employee.gender}}</td>
+            <td>{{employee.hire_date}}</td>
+            <td (click)="isEdit=true; checkId=employee.empNo;" style="width: 40px; height: 40px; text-align: center; font-size: 20px;">
                 <i class="btn btn-default fa fa-pencil" ></i>
             </td>
 
             <!-- Edit  -->
-            <th *ngIf="isEdit && checkID == employee.empNo" scope="row" colspan="5">
+            <div style='display: block' id="edit-modal" class="modal" *ngIf='isEdit && checkId == employee.empNo'>
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <form id='editform' [formGroup]="editForm" (ngSubmit) = "edit(employee.empNo)">
+                        <h2 id='modal-header'>Please fill in this form to edit an employee</h2>
+                        <div class="form-group container">
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="edit_empNo" class="control-label"><b>Employee ID</b></label>
+                                </div>
+                                <div class="col-75">
+                                    <input style="cursor:default" type="number" class="form-control add-input" formControlName='edit_empNo' name="edit_empNo" placeholder="{{employee.empNo}}" [(ngModel)]="employee.empNo" readonly>
+                                </div>
+                            </div>
+            
+                            <div class="row">
+                                <div class="col-25">
+                                        <label for="edit_birth_date" class="control-label"><b>Birth Date</b></label>
+                                </div>
+                                <div class="col-75">
+                                    <input style="cursor:default" type="text" formControlName='edit_birth_date' name="edit_birth_date" class="form-control add-input" readonly placeholder="{{employee.birth_date}}" [(ngModel)]="employee.birth_date">
+                                </div>
+                            </div>
+            
+                            <div class="row" >
+                                <div class="col-25">
+                                    <label for="edit_first_name" class="control-label"><b>First Name</b></label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" class="form-control add-input" formControlName='edit_first_name' name="edit_first_name" required placeholder="{{employee.first_name}}" [(ngModel)]="employee.first_name">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="edit_lastName" class="control-label"><b>Last Name</b></label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" class="form-control add-input" formControlName='edit_lastName' name="edit_lastName" required placeholder="{{employee.lastName}}" [(ngModel)]="employee.lastName">
+                                </div>
+                            </div>
+            
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="edit_gender" class="control-label"><b>Gender</b></label>
+                                </div>
+                                <div class="col-75">
+                                    <input style="cursor:default" type="text" class="form-control add-input" formControlName="edit_gender" name="edit_gender" readonly placeholder="{{employee.gender}}" [(ngModel)]="employee.gender">
+                                </div>
+                            </div>
+            
+                            <div class="row" >
+                                <div class="col-25">
+                                    <label for="edit_hire_date" class="control-label"><b>Hire Date</b></label>
+                                </div>
+                                <div class="col-75">
+                                    <input style="cursor:default" type="text" formControlName='edit_hire_date' name="edit_hire_date" class="form-control add-input" readonly placeholder="{{employee.hire_date}}" [(ngModel)]="employee.hire_date">
+                                </div>
+                            </div>
+                            <br>
+            
+                            <div class="clearfix">
+                                <button type="button" (click)="isEdit=false" class="cancelbtn">Cancel</button>
+                                <button type="submit" [disabled]="!editForm.valid" class="addbtn">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+            <!-- <th  scope="row" colspan="5">
                 <form [formGroup]="editForm" (ngSubmit) = "edit(employee.empNo)">
                     <input style="float:left; width: 11%;" formControlName='edit_empNo' name="edit_empNo" type="number" placeholder="{{employee.empNo}}" [(ngModel)]="employee.empNo">
                     <input style="float:left; width: 33%;" formControlName='edit_birth_date' name="edit_birth_date" type="date" placeholder="{{employee.birth_date}}" [(ngModel)]="employee.birth_date">
@@ -51,7 +122,7 @@
                         <button (click)="isEdit = false; checkID = null;" class="cancelbtn" style="margin-right:30px; width: 80px; height: 40px; text-align: center;">Cancel</button>
                     </div>
                 </form>
-            </th>
+            </th> -->
 
 
         </tr>

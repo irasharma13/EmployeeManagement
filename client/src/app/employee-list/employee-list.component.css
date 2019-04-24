@@ -41,7 +41,15 @@
     padding: 10px;
     margin: 25px;
     color: gray;
-    padding-left: 20%;
+    padding-left: 15%;
+}
+
+#editform {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 25px;
+    color: gray;
+    padding-left: 15%;
 }
 
 .add-input {

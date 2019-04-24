@@ -124,6 +124,13 @@ export class EmployeeListComponent implements OnInit {
     
   }
 
+  openEdit(num:number) {
+    if(document.getElementById('edit-modal') != null) {
+      document.getElementById('edit-modal').style.display='block'; 
+      this.checkId =num;
+    }
+  }
+
   edit(id:number) {
     console.log("Employee id is: "+id);
     var employee = new Employee();
@@ -152,4 +159,10 @@ export class EmployeeListComponent implements OnInit {
         console.log(data);
       }, error => console.log(error));
   }
+
+  // openEdit() {
+  //   this.isEdit=true;
+  //   // this.checkID=this.employee.empNo;
+  //   document.getElementById('edit-modal').style.display='block';
+  // }
 }
