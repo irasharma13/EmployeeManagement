@@ -72,7 +72,7 @@ export class EmployeeListComponent implements OnInit {
     //   });
     const claims = this.oauthService.getIdentityClaims();
     if (!claims) {
-      alert('An error occured');
+      alert('An error occured. You need to login to access this page.');
     } else {
       this.reloadData();
     }
@@ -157,6 +157,7 @@ export class EmployeeListComponent implements OnInit {
     this.employeeService.searchEmployee(this.search_emp.value)
       .subscribe(data => {
         console.log(data);
+        this.employees = data;
       }, error => console.log(error));
   }
 

@@ -24,7 +24,7 @@ export class EmployeeService {
     return this.http.post(`${this.EMPLOYEES_API}` + `/add`, employee);
   }
 
-  searchEmployee(emp_name: String): Observable<Object> {
+  searchEmployee(emp_name: String): Observable<any> {
     console.log(emp_name);
     return this.http.get(`${this.EMPLOYEES_API}` + `/search/employee/${emp_name}`);
   }
