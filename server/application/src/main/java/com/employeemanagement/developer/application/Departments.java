@@ -6,7 +6,9 @@ import lombok.*;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.Date;
 
 
@@ -22,10 +24,13 @@ public class Departments implements Serializable {
     @Column(name="dept_name")  
     private @NonNull String deptName;
 
-    public Employees(int deptNo, String deptName) {
+    public Departments(int deptNo, String deptName) {
 
         this.deptNo = deptNo;
         this.deptName = deptName;
-
     }
+
+    @OneToMany(mappedBy = "departments", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    Set<DepartmentEmployees> department_e = new HashSet();
 }

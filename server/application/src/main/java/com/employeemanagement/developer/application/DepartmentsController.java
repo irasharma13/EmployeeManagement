@@ -3,6 +3,7 @@ package com.employeemanagement.developer.application;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.HashSet;
 import java.util.Optional;
 
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  
 import com.employeemanagement.developer.application.Departments;
 import com.employeemanagement.developer.application.DepartmentsRepository;
+import com.employeemanagement.developer.application.DepartmentEmployeesRepository;
 
 
 @RestController
@@ -43,19 +45,21 @@ class DepartmentsController {
 		
     }
 
-	@GetMapping("employees/search/employee/{dept_name}")
-	public ResponseEntity<List<Departments>> searchDepartment (@PathVariable("dept_name") String dept_name){
-		System.out.println("Finding departments with department name: " + dept_name);
-		List<Departments> departments = repository.findByDeptName(dept_name);
-		 
-		if(departments.size() == 0){
-			System.out.println("Failed to find department with department name: "+ dept_name);
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		else{
-			return new ResponseEntity<>(departments, HttpStatus.OK);
-		}
+	// @GetMapping("employees/search/employee/{dept_name}")
+	// public ResponseEntity<List<Departments>> searchDepartment (@PathVariable("dept_name") String dept_name){
+	// 	System.out.println("Finding departments with department name: " + dept_name);
 
-        //pending work
-	}
+	// 	List<Departments> departments = repository.findByDeptName(dept_name);
+	// 	System.out.println(departments.get(0));
+	// 	// if(departments.size() == 0){
+	// 	// 	System.out.println("Failed to find department with department name: "+ dept_name);
+	// 	// 	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	// 	// }
+	// 	// else{
+         
+	// 	return new ResponseEntity<>(departments, HttpStatus.OK);
+	// 	// }
+
+    //     //pending work
+	// }
 }

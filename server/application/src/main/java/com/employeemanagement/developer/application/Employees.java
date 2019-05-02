@@ -6,7 +6,9 @@ import lombok.*;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.Date;
 
 enum Gender
@@ -34,6 +36,10 @@ public class Employees implements Serializable {
     private @NonNull Date hire_date;
 
     private @NonNull String gender;
+
+    @OneToMany(mappedBy = "employees", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    Set<DepartmentEmployees> d_employee = new HashSet();
 
     public Employees(int empNo, Date birth_date, String first_name, String lastName, Date hire_date, String gender) {
 
