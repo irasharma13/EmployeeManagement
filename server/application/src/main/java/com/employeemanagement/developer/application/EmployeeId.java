@@ -1,3 +1,4 @@
+package com.employeemanagement.developer.application;
 import java.io.Serializable;
 import lombok.*;
 import javax.persistence.*;
