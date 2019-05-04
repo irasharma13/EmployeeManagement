@@ -33,4 +33,9 @@ public class Departments implements Serializable {
     @OneToMany(mappedBy = "departments", cascade = CascadeType.ALL)
     @JsonManagedReference
     Set<DepartmentEmployees> department_e = new HashSet();
+
+    @OneToMany(mappedBy = "departments", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    Set<DepartmentManagers> department_manager = new HashSet();
+
 }
