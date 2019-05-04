@@ -44,13 +44,13 @@ class EmployeesController {
 		
     }
 	
-    @GetMapping("employees/all")
-    public List<Employees> getAllEmployees() {
+    @GetMapping("employees/all/{index}")
+    public List<Employees> getAllEmployees(@PathVariable("index") Integer index) {
 
-		System.out.println("Get all Emplyees");
+		System.out.println("Get all Employees");
 
 		List<Employees> employees = new ArrayList<>();
-		Pageable limit = PageRequest.of(0,100);
+		Pageable limit = PageRequest.of(index,50);
 		repository.findAll(limit).forEach(employees::add);
 		
 		return employees;

@@ -10,8 +10,8 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<any> {
-    return this.http.get(this.EMPLOYEES_API + "/all");
+  getAll(index: number): Observable<any> {
+    return this.http.get(this.EMPLOYEES_API + `/all/${index}`);
   }
 
   updateEmployee(id: number, employee: Employee): Observable<Object> {
