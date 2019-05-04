@@ -11,10 +11,11 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
  
 import com.employeemanagement.developer.application.DepartmentEmployees;
+import com.employeemanagement.developer.application.EmployeeId;
 
 @RepositoryRestResource
 @CrossOrigin(origins = "http://localhost:4200")
-public interface DepartmentEmployeesRepository extends CrudRepository<DepartmentEmployees, Integer> {
+public interface DepartmentEmployeesRepository extends CrudRepository<DepartmentEmployees, EmployeeId> {
 
-	// List<DepartmentEmployees> findByDeptNo(int deptNo);
+	List<DepartmentEmployees> findByEmployeeIdDeptNo(String deptNo);
 }

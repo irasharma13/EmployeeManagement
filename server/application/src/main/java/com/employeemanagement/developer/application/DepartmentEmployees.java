@@ -14,38 +14,40 @@ import java.util.Date;
 
 // @Embeddable class EmployeeId {empNo, deptNo}
 @Entity
-@IdClass(EmployeeId.class)
+// @IdClass(EmployeeId.class)
 @Getter @Setter
 @NoArgsConstructor
 @ToString /// @EqualsAndHashCode <--- THIS THING CAN CAUSE THE INFINITE LOOP
-public class DepartmentEmployees { // implements Serializable {
-    // @EmbeddedId EmployeeId employeeId;
-    @Id
-    @Column(name="dept_no")
-    private int deptNo;
+public class DepartmentEmployees implements Serializable {
+    @EmbeddedId 
+    private EmployeeId employeeId;
+
+    // @Id
+    // @Column(name="dept_no")
+    // private String deptNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonManagedReference
-    @PrimaryKeyJoinColumn(name = "departments_dept_no")
+    @JoinColumn(name = "departments_dept_no", referencedColumnName="dept_no")
     private @NonNull Departments departments;
 
-    @Id
-    @Column(name="emp_no")
-    private int empNo;
+    // @Id
+    // @Column(name="emp_no")
+    // private int empNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonManagedReference
-    @PrimaryKeyJoinColumn(name = "employees_emp_no")
+    @JoinColumn(name = "employees_emp_no", referencedColumnName="emp_no")
     private @NonNull Employees employees;
 
     private Date from_date;
     private Date to_date;
 
-    public DepartmentEmployees(int empNo, Date from_date, Date to_date) {
+    // public DepartmentEmployees(int empNo, Date from_date, Date to_date) {
 
-        this.empNo = empNo;
-        this.deptNo = deptNo;
-        this.from_date = from_date;
-        this.to_date = to_date;
-    }
+    //     this.empNo = empNo;
+    //     this.deptNo = deptNo;
+    //     this.from_date = from_date;
+    //     this.to_date = to_date;
+    // }
 }

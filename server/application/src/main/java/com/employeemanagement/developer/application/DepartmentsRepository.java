@@ -16,6 +16,6 @@ import com.employeemanagement.developer.application.Departments;
 @CrossOrigin(origins = "http://localhost:4200")
 public interface DepartmentsRepository extends CrudRepository<Departments, Integer> {
 
-	List<Departments> findByDeptNo(int deptNo);
+	List<Departments> findByDeptNo(String deptNo);
 	List<Departments> findByDeptName(String deptName);
 }

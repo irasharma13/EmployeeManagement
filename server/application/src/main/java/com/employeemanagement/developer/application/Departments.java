@@ -19,12 +19,12 @@ import java.util.Date;
 public class Departments implements Serializable {
     @Id
     @Column(name="dept_no")
-    private @NonNull int deptNo;
+    private @NonNull String deptNo;
 
     @Column(name="dept_name")  
     private @NonNull String deptName;
 
-    public Departments(int deptNo, String deptName) {
+    public Departments(String deptNo, String deptName) {
 
         this.deptNo = deptNo;
         this.deptName = deptName;

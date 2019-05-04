@@ -22,6 +22,7 @@ export class DepartmentComponent implements OnInit {
     this.searchForm = this.fb.group({
       search_dept: new FormControl('', Validators.required)
     });
+    console.log(this.employeeService.getAllDepartments());
   }
 
   get search_dept() { return this.searchForm.get('search_dept') }

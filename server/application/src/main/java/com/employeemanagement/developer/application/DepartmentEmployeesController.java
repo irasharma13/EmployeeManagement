@@ -25,10 +25,12 @@ import org.springframework.web.bind.annotation.RestController;
 // import org.springframework.data.domain.Page;
 // import org.springframework.data.domain.Pageable;
  
+import com.employeemanagement.developer.application.Employees;
 import com.employeemanagement.developer.application.Departments;
 import com.employeemanagement.developer.application.DepartmentEmployees;
 import com.employeemanagement.developer.application.DepartmentsRepository;
 import com.employeemanagement.developer.application.DepartmentEmployeesRepository;
+import com.employeemanagement.developer.application.EmployeesRepository;
 
 
 @RestController
@@ -37,32 +39,52 @@ class DepartmentEmployeesController {
 	@Autowired
     private DepartmentEmployeesRepository repository;
     private DepartmentsRepository depRepository;
+	private EmployeesRepository empRepository;
 
 	public static void main(String[] args) {
         SpringApplication.run(DepartmentEmployeesController.class, args);
     }
 
-    public DepartmentEmployeesController(DepartmentEmployeesRepository repository, DepartmentsRepository depRepository) {
+    public DepartmentEmployeesController(DepartmentEmployeesRepository repository, DepartmentsRepository depRepository, EmployeesRepository empRepository) {
         this.repository = repository;
         this.depRepository = depRepository;
-		
+		this.empRepository = empRepository;
     }
 
-	@GetMapping("employees/search/employee/{dept_name}")
-	public ResponseEntity<List<Departments>> searchDepartment (@PathVariable("dept_name") String dept_name){
+	@GetMapping("emps/all")
+    public List<Departments> getAllDepartments() {
+
+		System.out.println("Get all Departments");
+
+		List<Departments> departments = new ArrayList<>();
+		depRepository.findAll().forEach(departments::add);
+		
+		return departments;
+    }
+
+	@GetMapping("emps/search/employee/{dept_name}")
+	public ResponseEntity<List<Employees>> searchDepartment (@PathVariable("dept_name") String dept_name){
 		System.out.println("Finding departments with department name: " + dept_name);
 
 		List<Departments> departments = depRepository.findByDeptName(dept_name);
+		if(departments.size() == 0){
+			System.out.println("Failed to find department with department name: "+ dept_name);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		System.out.println(departments.get(0));
-		// if(departments.size() == 0){
-		// 	System.out.println("Failed to find department with department name: "+ dept_name);
-		// 	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		// }
-		// else{
-         
-		return new ResponseEntity<>(departments, HttpStatus.OK);
-		// }
+		String deptNo = departments.get(0).getDeptNo();
+		List<DepartmentEmployees> departmentEmployee = repository.findByEmployeeIdDeptNo(deptNo);
 
-        //pending work
+		List<Employees> deptEmployee = new ArrayList<>();
+
+		for(int i=0; i<departmentEmployee.size(); i++){
+			int empNo = departmentEmployee.get(i).getEmployeeId().getEmpNo();
+			Optional<Employees> employee = empRepository.findById(empNo);
+			if (employee.isPresent()){
+				deptEmployee.add(employee.get());
+			}
+		}
+
+		return new ResponseEntity<>(deptEmployee, HttpStatus.OK);
 	}
 }

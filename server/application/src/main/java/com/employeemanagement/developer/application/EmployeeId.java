@@ -6,11 +6,12 @@ import javax.persistence.*;
 @Getter @Setter
 @NoArgsConstructor
 @ToString 
+@Embeddable
 public class EmployeeId implements Serializable {
-    private int deptNo;
+    private String deptNo;
     private int empNo;
 
-    public EmployeeId(int deptNo, int empNo) {
+    public EmployeeId(String deptNo, int empNo) {
         this.deptNo = deptNo;
         this.empNo = empNo;
     }
@@ -19,7 +20,7 @@ public class EmployeeId implements Serializable {
     public int hashCode() {
         final int prime =31;
         int result = 1;
-        result = prime * result + deptNo;
+        result = prime * result + ((deptNo == null) ? 0 : deptNo.hashCode());
         result = prime * result + empNo;
         return result;
     }
