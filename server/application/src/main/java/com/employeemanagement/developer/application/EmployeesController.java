@@ -21,8 +21,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-// import org.springframework.data.domain.Page;
-// import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
  
 import com.employeemanagement.developer.application.Employees;
 import com.employeemanagement.developer.application.EmployeesRepository;
@@ -49,7 +50,8 @@ class EmployeesController {
 		System.out.println("Get all Emplyees");
 
 		List<Employees> employees = new ArrayList<>();
-		repository.findAll().forEach(employees::add);
+		Pageable limit = PageRequest.of(0,100);
+		repository.findAll(limit).forEach(employees::add);
 		
 		return employees;
     }

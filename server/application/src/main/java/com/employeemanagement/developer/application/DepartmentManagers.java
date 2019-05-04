@@ -17,6 +17,7 @@ import java.util.Date;
 @Getter @Setter
 @NoArgsConstructor
 @ToString /// @EqualsAndHashCode <--- THIS THING CAN CAUSE THE INFINITE LOOP
+@Table(name="dept_manager")
 public class DepartmentManagers implements Serializable {
     @EmbeddedId 
     private EmployeeId employeeId;

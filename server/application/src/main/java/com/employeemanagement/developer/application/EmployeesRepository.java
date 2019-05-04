@@ -14,7 +14,7 @@ import com.employeemanagement.developer.application.Employees;
 
 @RepositoryRestResource
 @CrossOrigin(origins = "http://localhost:4200")
-public interface EmployeesRepository extends CrudRepository<Employees, Integer> {
+public interface EmployeesRepository extends JpaRepository<Employees, Integer> {
 
 	List<Employees> findByEmpNo(int empNo);
 	List<Employees> findByLastName(String lastName);
