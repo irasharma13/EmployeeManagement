@@ -2,17 +2,20 @@
     <input type="text" placeholder="Check if a employee is a manager by his/her name" name="search_manager" formControlName='search_manager' required>
     <button type="submit"><i class="fa fa-search"></i></button>
 </form>
+<br>
 
-<!-- <h2 *ngIf="!isSearch" style='color:gray'>Departments</h2> -->
+<h2 *ngIf="!isSearch" style='color:gray'>Managers</h2>
 <h2 *ngIf="isSearch" style='color:gray'>Managers in {{this.searchInput}}</h2>
     
 <table>
-    <!-- <thead *ngIf="!isSearch">
+    <thead *ngIf="!isSearch">
         <tr>
-            <th scope="col">Department No.</th>
+            <th scope="col">Employee No.</th>
+            <th scope="col">Employee First Name</th>
+            <th scope="col">Employee Last Name</th>
             <th scope="col">Department Name</th>
         </tr>
-    </thead> -->
+    </thead>
     <thead *ngIf="isSearch">
         <tr>
             <th scope="col">Employee ID</th>
@@ -23,13 +26,15 @@
             <th scope="col">Hire Date</th>
         </tr>
     </thead>
-    <!-- <tbody *ngIf="!isSearch">
+    <tbody *ngIf="!isSearch">
 
-        <tr *ngFor="let department of departments">
-            <td>{{department.deptNo}}</td>
-            <td>{{department.deptName}}</td>
+        <tr *ngFor="let manager of managers">
+            <td>{{manager.employee.empNo}}</td>
+            <td>{{manager.employee.firstname}}</td>
+            <td>{{manager.employee.lastname}}</td>
+            <td>{{manager.depName}}</td>
         </tr>
-    </tbody> -->
+    </tbody>
     <tbody *ngIf="isSearch">
         <tr *ngFor="let employee of employees">
             <td>{{employee.empNo}}</td>

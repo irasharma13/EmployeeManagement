@@ -16,6 +16,7 @@ export class ManagerComponent implements OnInit {
   employees: Employee[];
   searchInput: String;
   isSearch: boolean = false;
+  managers: JSON[]=[];
 
   constructor(
     private employeeService: EmployeeService,
@@ -48,12 +49,10 @@ export class ManagerComponent implements OnInit {
       .getAllManagers()
       .subscribe(managers => {
         console.log(managers);
-        console.log(JSON.parse(managers[0]));
-        // for(var i=0; i <managers.length; i++) {
-        //   var json = JSON.parse(managers[i]);
-        //   console.log(json.count);
-        //   console.log(json.result);
-        // }
+        for(var i=0; i <managers.length; i++) {
+          var json = JSON.parse(managers[i]);
+          this.managers.push(json);
+        }
       });
   }
 

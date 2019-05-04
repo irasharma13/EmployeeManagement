@@ -64,11 +64,11 @@ class DepartmentManagersController {
 		for(int i=0; i<managers.size(); i++){
 			String details = "{";
 			List<Departments> department = depRepository.findByDeptNo(managers.get(0).getEmployeeId().getDeptNo());
-			details += "\"Department Name\": \"" + department.get(0).getDeptName()+"\",";
+			details += "\"depName\": \"" + department.get(0).getDeptName()+"\",";
 
 			Optional<Employees> employee = empRepository.findById(managers.get(0).getEmployeeId().getEmpNo());
 			if (employee.isPresent()){
-				details += "\"Employee\": {\"Employee Number\": " + employee.get().getEmpNo() + ", \"First Name\": \"" + employee.get().getFirst_name() + "\", \"Last Name\": \"" + employee.get().getLastName() + "\"}}";
+				details += "\"employee\": {\"empNo\": " + employee.get().getEmpNo() + ", \"firstname\": \"" + employee.get().getFirst_name() + "\", \"lastname\": \"" + employee.get().getLastName() + "\"}}";
 				manager_details.add(details);
 			}
 		}

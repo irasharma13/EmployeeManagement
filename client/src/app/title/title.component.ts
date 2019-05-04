@@ -12,6 +12,9 @@ import { Employee } from "../models/employee";
 export class TitleComponent implements OnInit {
 
   searchForm: FormGroup;
+  employees: Employee[];
+  searchInput: String;
+  isSearch: boolean = false;
 
   constructor(
     private employeeService: EmployeeService,
@@ -28,9 +31,12 @@ export class TitleComponent implements OnInit {
 
   search() {
     console.log('Searching by title');
-    this.employeeService.searchTitle(this.search_title.value)
+    this.searchInput = this.search_title.value;
+    this.employeeService.searchTitle(this.searchInput)
       .subscribe(data => {
         console.log(data);
+        this.employees = data;
+        this.isSearch = true;
       }, error => console.log(error));
   }
 
