@@ -14,13 +14,14 @@ import { OAuthService } from 'angular-oauth2-oidc';
   styleUrls: ["./employee-list.component.css"]
 })
 export class EmployeeListComponent implements OnInit {
-  employees: Employee[];
+  employees: Employee[] = [];
   isAuthenticated: boolean;
   isEdit:boolean = false;
   checkId:Number;
   addForm: FormGroup;
   editForm: FormGroup;
   searchForm: FormGroup;
+  index =0;
 
   myRecaptcha = new FormControl(false);
 
@@ -100,8 +101,15 @@ export class EmployeeListComponent implements OnInit {
   reloadData() {
     console.log('Retreiving employee data');
     this.employeeService
-      .getAll()
-      .subscribe(employees => {this.employees = employees;});
+      .getAll(this.index)
+      .subscribe(employees => {
+        this.employees.concat(employees); 
+        this.index += 50; 
+        console.log(this.index);
+        console.log(this.employees);
+        if(this.index < 500) {
+          this.reloadData();
+        }});
   }
 
   add() {
