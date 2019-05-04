@@ -22,6 +22,8 @@ export class EmployeeListComponent implements OnInit {
   editForm: FormGroup;
   searchForm: FormGroup;
 
+  myRecaptcha = new FormControl(false);
+
   constructor(private oauthService: OAuthService, //private oktaAuth: OktaAuthService,
     private employeeService: EmployeeService,
     private fb: FormBuilder
@@ -160,6 +162,15 @@ export class EmployeeListComponent implements OnInit {
         this.employees = data;
       }, error => console.log(error));
   }
+
+  onScriptLoad() {
+    console.log('Google reCAPTCHA loaded and is ready for use!')
+  }
+
+  onScriptError() {
+    console.log('Something went long when loading the Google reCAPTCHA')
+  }
+
 
   // openEdit() {
   //   this.isEdit=true;

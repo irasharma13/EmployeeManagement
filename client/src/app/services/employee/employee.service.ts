@@ -15,17 +15,14 @@ export class EmployeeService {
   }
 
   updateEmployee(id: number, employee: Employee): Observable<Object> {
-    console.log(employee);
     return this.http.put(`${this.EMPLOYEES_API}/update/${id}`, employee);
   }
 
   addEmployee(employee: Object): Observable<Object> {
-    console.log(employee);
     return this.http.post(`${this.EMPLOYEES_API}` + `/add`, employee);
   }
 
   searchEmployee(emp_name: String): Observable<any> {
-    console.log(emp_name);
     return this.http.get(`${this.EMPLOYEES_API}` + `/search/employee/${emp_name}`);
   }
 
@@ -33,18 +30,15 @@ export class EmployeeService {
     return this.http.get('http://localhost:8080/emps/all');
   }
 
-  searchDepartment(dept_name: String): Observable<Object> {
-    console.log(dept_name);
+  searchDepartment(dept_name: String): Observable<any> {
     return this.http.get(`http://localhost:8080/emps/search/employee/${dept_name}`);
   }
 
-  searchManager(dept_name: String): Observable<Object> {
-    console.log(dept_name);
+  searchManager(dept_name: String): Observable<any> {
     return this.http.get(`http://localhost:8080/managers/search/employee/${dept_name}`);
   }
 
   searchTitle(title: String): Observable<Object> {
-    console.log(title);
     return this.http.get(`http://localhost:8080/titles/search/employee/${title}`);
   }
 }

@@ -99,7 +99,8 @@
                                 </div>
                             </div>
                             <br>
-            
+                            <recaptcha [formControl]="myRecaptcha" (scriptLoad)="onScriptLoad()" (scriptError)="onScriptError()"></recaptcha>
+                            <br>
                             <div class="clearfix">
                                 <button type="button" (click)="isEdit=false" class="cancelbtn">Cancel</button>
                                 <button type="submit" [disabled]="!editForm.valid" class="addbtn">Save</button>

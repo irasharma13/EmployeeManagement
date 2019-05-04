@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RecaptchaModule } from 'angular-google-recaptcha';
 // Routes
 import { routes } from './app.router';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -53,6 +54,9 @@ const config = {
     routes,
     HttpModule,
     ReactiveFormsModule,
+    RecaptchaModule.forRoot({
+      siteKey: '6LcxzVEUAAAAAKyNKo47zY56Fgd8Yni3RBVPSL6o',
+    }),
     OAuthModule.forRoot()
     // OktaAuthModule.initAuth(config)
   //   OAuthModule.forRoot({
