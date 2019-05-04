@@ -103,13 +103,20 @@ export class EmployeeListComponent implements OnInit {
     this.employeeService
       .getAll(this.index)
       .subscribe(employees => {
+        if(this.employees.length == 0) {
+          this.employees = employees;
+        } else {
+          var old = this.employees;
+          this.employees = old.concat(employees);
+        }
         this.employees.concat(employees); 
         this.index += 50; 
         console.log(this.index);
         console.log(this.employees);
-        if(this.index < 500) {
+        if(this.index < 300000) {
           this.reloadData();
-        }});
+        }
+      });
   }
 
   add() {
