@@ -45,6 +45,6 @@ export class EmployeeService {
 
   searchTitle(title: String): Observable<Object> {
     console.log(title);
-    return this.http.get(`${this.EMPLOYEES_API}` + `/search/employee/${title}`);
+    return this.http.get(`http://localhost:8080/titles/search/employee/${title}`);
   }
 }

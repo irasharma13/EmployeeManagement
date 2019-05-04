@@ -45,6 +45,10 @@ public class Employees implements Serializable {
     @JsonManagedReference
     Set<DepartmentManagers> manager_employee = new HashSet();
 
+    @OneToMany(mappedBy = "employees", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    Set<Titles> employee_title = new HashSet();
+
     public Employees(int empNo, Date birth_date, String first_name, String lastName, Date hire_date, String gender) {
 
         this.empNo = empNo;
