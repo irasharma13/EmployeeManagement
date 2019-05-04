@@ -26,6 +26,7 @@ export class ManagerComponent implements OnInit {
     this.searchForm = this.fb.group({
       search_manager: new FormControl('', Validators.required)
     });
+    this.reloadData();
   }
 
   get search_manager() { return this.searchForm.get('search_manager') }
@@ -39,6 +40,21 @@ export class ManagerComponent implements OnInit {
         this.employees = data;
         this.isSearch = true;
       }, error => console.log(error));
+  }
+
+  reloadData() {
+    console.log('Retreiving employee data');
+    this.employeeService
+      .getAllManagers()
+      .subscribe(managers => {
+        console.log(managers);
+        console.log(JSON.parse(managers[0]));
+        // for(var i=0; i <managers.length; i++) {
+        //   var json = JSON.parse(managers[i]);
+        //   console.log(json.count);
+        //   console.log(json.result);
+        // }
+      });
   }
 
 }

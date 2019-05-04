@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.Optional;
+import org.json.JSONObject;
 
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.boot.SpringApplication;
@@ -51,16 +52,29 @@ class DepartmentManagersController {
 		this.empRepository = empRepository;
     }
 
-	// @GetMapping("emps/all")
-    // public List<Departments> getAllManagers() {
+	@GetMapping("managers/all")
+    public List<String> getAllManagers() {
 
-	// 	System.out.println("Get all Managers");
+		System.out.println("Get all Managers");
 
-	// 	List<DepartmentManagers> managers = new ArrayList<>();
-	// 	repository.findAll().forEach(departments::add);
+		List<DepartmentManagers> managers = new ArrayList<>();
+		repository.findAll().forEach(managers::add);
+		List<String> manager_details = new ArrayList<>();
 		
-	// 	return departments;
-    // }
+		for(int i=0; i<managers.size(); i++){
+			String details = "{";
+			List<Departments> department = depRepository.findByDeptNo(managers.get(0).getEmployeeId().getDeptNo());
+			details += "\"Department Name\": \"" + department.get(0).getDeptName()+"\",";
+
+			Optional<Employees> employee = empRepository.findById(managers.get(0).getEmployeeId().getEmpNo());
+			if (employee.isPresent()){
+				details += "\"Employee\": {\"Employee Number\": " + employee.get().getEmpNo() + ", \"First Name\": \"" + employee.get().getFirst_name() + "\", \"Last Name\": \"" + employee.get().getLastName() + "\"}}";
+				manager_details.add(details);
+			}
+		}
+		return manager_details;
+		// return managers;
+    }
 
 	@GetMapping("managers/search/employee/{dept_name}")
 	public ResponseEntity<List<Employees>> searchDepartmentManagers (@PathVariable("dept_name") String dept_name){

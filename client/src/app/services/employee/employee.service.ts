@@ -34,6 +34,10 @@ export class EmployeeService {
     return this.http.get(`http://localhost:8080/emps/search/employee/${dept_name}`);
   }
 
+  getAllManagers(): Observable<any> {
+    return this.http.get('http://localhost:8080/managers/all');
+  }
+
   searchManager(dept_name: String): Observable<any> {
     return this.http.get(`http://localhost:8080/managers/search/employee/${dept_name}`);
   }
