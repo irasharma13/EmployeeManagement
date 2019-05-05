@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
  
@@ -18,4 +19,7 @@ import com.employeemanagement.developer.application.Titles;
 public interface TitlesRepository extends CrudRepository<Titles, Integer> {
 
 	List<Titles> findByTitle(String title);
+	@Query("SELECT DISTINCT title FROM Titles")
+	List<String> findDistinctTitle();
+
 }

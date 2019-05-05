@@ -25,6 +25,7 @@ export class TitleComponent implements OnInit {
     this.searchForm = this.fb.group({
       search_title: new FormControl('', Validators.required)
     });
+    console.log(this.employeeService.getAllTitles());
   }
 
   get search_title() { return this.searchForm.get('search_title') }

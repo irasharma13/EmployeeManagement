@@ -51,6 +51,18 @@ class TitlesController {
 		this.empRepository = empRepository;
     }
 
+	@GetMapping("titles/all")
+    public List<String> getAllTitles() {
+
+		System.out.println("Get all the titles");
+		
+		List<String> titles = repository.findDistinctTitle();
+		// Pageable limit = PageRequest.of(index,50);
+		System.out.println("Here"); 
+		System.out.println(titles.get(0));
+		return titles;
+    }
+
 	@GetMapping("titles/search/employee/{title}")
 	public ResponseEntity<List<Employees>> searchEmployeeTitle (@PathVariable("title") String title){
 		System.out.println("Finding employees with title: " + title);
