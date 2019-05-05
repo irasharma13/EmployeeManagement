@@ -113,10 +113,16 @@ export class EmployeeListComponent implements OnInit {
         this.index += 50; 
         console.log(this.index);
         console.log(this.employees);
-        if(this.index < 300000) {
-          this.reloadData();
-        }
+        // if(this.index < 300000) {
+        //   this.reloadData();
+        // }
       });
+  }
+
+  addMore() {
+    if(this.index < 300000) {
+      this.reloadData();
+    }
   }
 
   add() {

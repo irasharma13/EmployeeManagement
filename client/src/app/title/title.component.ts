@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 
 import { EmployeeService } from "../services/employee/employee.service";
 import { Employee } from "../models/employee";
+import { Title } from "../models/title";
 
 @Component({
   selector: 'app-title',
@@ -16,6 +17,8 @@ export class TitleComponent implements OnInit {
   searchInput: String;
   isSearch: boolean = false;
   titles: String[];
+  index: number = 0;
+
 
   constructor(
     private employeeService: EmployeeService,
@@ -37,8 +40,8 @@ export class TitleComponent implements OnInit {
     this.employeeService.searchTitle(this.searchInput)
       .subscribe(data => {
         console.log(data);
-        this.employees = data;
-        this.isSearch = true;
+        this.getEmployees(data);
+        
       }, error => console.log(error));
   }
 
@@ -47,9 +50,28 @@ export class TitleComponent implements OnInit {
     this.employeeService
       .getAllTitles()
       .subscribe(titles => {
+        console.log('Got titles');
         console.log(titles);
         this.titles = titles;
       });
+  }
+
+  addMore() {
+    this.index += 50;
+    if(this.index < 300000) {
+      this.reloadData();
+    }
+  }
+
+  getEmployees(title: Title[]) {
+    console.log('Getting employees with provided title');
+    this.employeeService.getAllEmpWithTitle(title, this.index).subscribe(employees =>
+       {
+        console.log('Printing employees with title');
+        console.log(employees);
+        this.employees = employees;
+        this.isSearch = true;
+       })
   }
 
 }
