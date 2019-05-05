@@ -10,12 +10,12 @@ import java.util.List;
  
 import org.springframework.data.repository.CrudRepository;
  
-import com.employeemanagement.developer.application.Employees;
+import com.employeemanagement.developer.application.DepartmentManagers;
+import com.employeemanagement.developer.application.EmployeeId;
 
 @RepositoryRestResource
 @CrossOrigin(origins = "http://localhost:4200")
-public interface EmployeesRepository extends JpaRepository<Employees, Integer> {
+public interface DepartmentManagersRepository extends CrudRepository<DepartmentManagers, EmployeeId> {
 
-	List<Employees> findByEmpNo(int empNo);
-	List<Employees> findByLastName(String lastName);
+	List<DepartmentManagers> findByEmployeeIdDeptNo(String deptNo);
 }

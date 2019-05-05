@@ -21,15 +21,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-// import org.springframework.data.domain.Page;
-// import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
  
 import com.employeemanagement.developer.application.Employees;
 import com.employeemanagement.developer.application.EmployeesRepository;
 
 
 @RestController
-//@RequestMapping("/transaction")
 class EmployeesController {
 
 	@Autowired
@@ -44,16 +44,64 @@ class EmployeesController {
 		
     }
 	
-    @GetMapping("employees/all")
-    public List<Employees> getAllEmployees() {
+    @GetMapping("employees/all/{index}")
+    public List<Employees> getAllEmployees(@PathVariable("index") Integer index) {
 
-		System.out.println("Get all Emplyees");
-
+		System.out.println("Get all Employees");
+		
 		List<Employees> employees = new ArrayList<>();
-		repository.findAll().forEach(employees::add);
+		Pageable limit = PageRequest.of(index,50);
+		repository.findAll(limit).forEach(employees::add);
 		
 		return employees;
     }
+
+	@PostMapping("employees/add")
+	public Employees insertEmployee(@RequestBody Employees employee) {
+
+		System.out.println("Prints the new employee: " + employee);
+		return repository.save(new Employees(employee.getEmpNo(), employee.getBirth_date(), employee.getFirst_name(), employee.getLastName(), employee.getHire_date(), employee.getGender()));
+
+	}
+
+	@PutMapping("employees/update/{id}")
+	public ResponseEntity<Employees> updateEmployee(@PathVariable("id") Integer id, @RequestBody Employees employee) {
+		System.out.println("Finding employee with id: " + id);
+		// Employees _employee = repository.findByEmployeesEmpNo(id);
+
+		List<Employees> employees = repository.findByEmpNo(id);
+		Employees _employee = employees.get(0);
+		if(_employee != null) {
+			// Employees _employee = employeeOp.get();
+			System.out.println("Found employee: " + _employee);
+			_employee.setBirth_date(employee.getBirth_date());
+			_employee.setFirst_name(employee.getFirst_name());
+			_employee.setLastName(employee.getLastName());
+			_employee.setHire_date(employee.getHire_date());
+			_employee.setGender(employee.getGender());
+
+			System.out.println("Updating Employee to: "+_employee);
+            return new ResponseEntity<>(repository.save(_employee), HttpStatus.OK);
+		}
+
+
+        System.out.println("Failed to find transaction with id: "+ id);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+
+	@GetMapping("employees/search/employee/{emp_name}")
+	public ResponseEntity<List<Employees>> searchEmployee (@PathVariable("emp_name") String emp_name){
+		System.out.println("Finding employee with last name: " + emp_name);
+		List<Employees> employees = repository.findByLastName(emp_name);
+		 
+		if(employees.size() == 0){
+			System.out.println("Failed to find transaction with last name: "+ emp_name);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		else{
+			return new ResponseEntity<>(employees, HttpStatus.OK);
+		}
+	}
 
 	// @GetMapping("transaction/bankacct/{email}")
     // public Integer getBankAcct(@PathVariable String email) {

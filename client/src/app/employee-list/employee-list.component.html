@@ -1,4 +1,17 @@
-<!-- test <table class="table table-striped table-dark">
+<!-- <button *ngIf = '!isAuthenticated' (click)='oktaAuth.loginRedirect()'>LOGIN</button> -->
+<!-- <button *ngIf = 'isAuthenticated' (click)='oktaAuth.logout()'>LOGOUT</button> -->
+
+<form class="search" [formGroup]="searchForm" (ngSubmit) = "search()">
+    <input type="text" placeholder="Enter an employee's name" name="search_emp" formControlName='search_emp' required>
+    <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+
+<br>
+<h2 style='color:gray'>Employees 
+    <i class="add fa fa-plus-circle" title='Click to add an employee' onclick="document.getElementById('add-modal').style.display='block'"></i>
+</h2>
+
+<table style="overflow-y: auto;">
     <thead>
         <tr>
             <th scope="col">Employee ID</th>
@@ -6,21 +19,226 @@
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
             <th scope="col">Gender</th>
-            <th scope="col"></th>Hire Date</th>
+            <th scope="col">Hire Date</th>
+            <th scope="col"></th>
 
         </tr>
     </thead>
     <tbody>
 
         <tr *ngFor="let employee of employees">
-            <th scope="row">{{employee.emp_no}}</th>
+            <td>{{employee.empNo}}</td>
             <td>{{employee.birth_date}}</td>
             <td>{{employee.first_name}}</td>
-            <td>{{employee.last_name}}</td>
+            <td>{{employee.lastName}}</td>
             <td>{{employee.gender}}</td>
             <td>{{employee.hire_date}}</td>
+            <td (click)="isEdit=true; checkId=employee.empNo;" style="width: 40px; height: 40px; text-align: center; font-size: 20px;">
+                <i class="btn btn-default fa fa-pencil" ></i>
+            </td>
+
+            <!-- Edit  -->
+            <div style='display: block' id="edit-modal" class="modal" *ngIf='isEdit && checkId == employee.empNo'>
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <form id='editform' [formGroup]="editForm" (ngSubmit) = "edit(employee.empNo)">
+                        <h2 id='modal-header'>Please fill in this form to edit an employee</h2>
+                        <div class="form-group container">
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="edit_empNo" class="control-label"><b>Employee ID</b></label>
+                                </div>
+                                <div class="col-75">
+                                    <input style="cursor:default" type="number" class="form-control add-input" formControlName='edit_empNo' name="edit_empNo" placeholder="{{employee.empNo}}" [(ngModel)]="employee.empNo" readonly>
+                                </div>
+                            </div>
+            
+                            <div class="row">
+                                <div class="col-25">
+                                        <label for="edit_birth_date" class="control-label"><b>Birth Date</b></label>
+                                </div>
+                                <div class="col-75">
+                                    <input style="cursor:default" type="text" formControlName='edit_birth_date' name="edit_birth_date" class="form-control add-input" readonly placeholder="{{employee.birth_date}}" [(ngModel)]="employee.birth_date">
+                                </div>
+                            </div>
+            
+                            <div class="row" >
+                                <div class="col-25">
+                                    <label for="edit_first_name" class="control-label"><b>First Name</b></label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" class="form-control add-input" formControlName='edit_first_name' name="edit_first_name" required placeholder="{{employee.first_name}}" [(ngModel)]="employee.first_name">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="edit_lastName" class="control-label"><b>Last Name</b></label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" class="form-control add-input" formControlName='edit_lastName' name="edit_lastName" required placeholder="{{employee.lastName}}" [(ngModel)]="employee.lastName">
+                                </div>
+                            </div>
+            
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="edit_gender" class="control-label"><b>Gender</b></label>
+                                </div>
+                                <div class="col-75">
+                                    <input style="cursor:default" type="text" class="form-control add-input" formControlName="edit_gender" name="edit_gender" readonly placeholder="{{employee.gender}}" [(ngModel)]="employee.gender">
+                                </div>
+                            </div>
+            
+                            <div class="row" >
+                                <div class="col-25">
+                                    <label for="edit_hire_date" class="control-label"><b>Hire Date</b></label>
+                                </div>
+                                <div class="col-75">
+                                    <input style="cursor:default" type="text" formControlName='edit_hire_date' name="edit_hire_date" class="form-control add-input" readonly placeholder="{{employee.hire_date}}" [(ngModel)]="employee.hire_date">
+                                </div>
+                            </div>
+                            <br>
+                            <recaptcha [formControl]="myRecaptcha" (scriptLoad)="onScriptLoad()" (scriptError)="onScriptError()"></recaptcha>
+                            <br>
+                            <div class="clearfix">
+                                <button type="button" (click)="isEdit=false" class="cancelbtn">Cancel</button>
+                                <button type="submit" [disabled]="!editForm.valid" class="addbtn">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+            <!-- <th  scope="row" colspan="5">
+                <form [formGroup]="editForm" (ngSubmit) = "edit(employee.empNo)">
+                    <input style="float:left; width: 11%;" formControlName='edit_empNo' name="edit_empNo" type="number" placeholder="{{employee.empNo}}" [(ngModel)]="employee.empNo">
+                    <input style="float:left; width: 33%;" formControlName='edit_birth_date' name="edit_birth_date" type="date" placeholder="{{employee.birth_date}}" [(ngModel)]="employee.birth_date">
+                    <input style="float:left; width: 19%;" formControlName='edit_first_name' name="edit_first_name" type="text" placeholder="{{employee.first_name}}" [(ngModel)]="employee.first_name">
+                    <input style="float:left; width: 25%;" formControlName='edit_lastName' name="edit_lastName" type="text" placeholder="{{employee.lastName}}" [(ngModel)]="employee.lastName">
+                    <input style="float:left; width: 25%;" formControlName='edit_gender' name="edit_gender" type="text" placeholder="{{employee.gender}}" [(ngModel)]="employee.gender">
+                    <input style="float:left; width: 33%;" formControlName='edit_hire_date' name="edit_hire_date" type="date" placeholder="{{employee.hire_date}}" [(ngModel)]="employee.hire_date">
+                    <div style="margin-left: 50%"> 
+                        <button type="submit" [disabled]="!editForm.valid" class="addbtn" style="margin-right:30px; width: 60px; height: 40px; text-align: center;">Save</button>
+                        <button (click)="isEdit = false; checkID = null;" class="cancelbtn" style="margin-right:30px; width: 80px; height: 40px; text-align: center;">Cancel</button>
+                    </div>
+                </form>
+            </th> -->
+
 
         </tr>
-       
+        
     </tbody>
-</table> -->
+    <!-- <tbody>
+
+        <tr>
+            <td>123456</td>
+            <td>09/12/1979</td>
+            <td>John</td>
+            <td>Doe</td>
+            <td>M</td>
+            <td>1999</td>
+            
+        </tr>
+
+        <tr>
+            <td>234567</td>
+            <td>12/02/1983</td>
+            <td>Jane</td>
+            <td>Doe</td>
+            <td>F</td>
+            <td>2005</td>
+            <td *ngIf="!isEdit || checkID != 1">
+                    <button (click)="isEdit=true;checkID=1;" class="btn btn-default" style="margin-right:30px; width: 40px; height: 40px; text-align: center;"><i class="fa fa-pencil"></i></button>
+                </td>
+
+        </tr>
+
+        <tr>
+            <td>345678</td>
+            <td>03/18/1989</td>
+            <td>Mary</td>
+            <td>Smith</td>
+            <td>F</td>
+            <td>2014</td>
+
+        </tr>
+        
+    </tbody> -->
+</table>
+
+<!-- The Modal -->
+<div id="add-modal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <form id='addform' [formGroup]="addForm" (ngSubmit) = "add()">
+            <h2 id='modal-header'>Please fill in this form to add an employee</h2>
+            <div class="form-group container">
+                <div class="row">
+                    <div class="col-25">
+                        <label for="empNo" class="control-label"><b>Employee ID</b></label>
+                    </div>
+                    <div class="col-75">
+                            <input type="number" placeholder="Enter Employee ID" class="form-control add-input" formControlName='empNo' name="emp_id" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                            <label for="birth_date" class="control-label"><b>Birth Date</b></label>
+                    </div>
+                    <div class="col-75">
+                        <input type="date" placeholder="Enter Birth Date" formControlName='birth_date' name="birth_date" class="form-control add-input" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label for="first_name" class="control-label"><b>First Name</b></label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" placeholder="Enter First Name" class="form-control add-input" formControlName='first_name' name="first_name" required>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-25">
+                        <label for="lastName" class="control-label"><b>Last Name</b></label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" placeholder="Enter Last Name" class="form-control add-input" formControlName='lastName' name="lastName" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label for="gender" class="control-label"><b>Gender</b></label>
+                    </div>
+                    <div class="col-75">
+                        <input type="radio" formControlName="gender" name="gender" value="M" checked> Male<br>
+                        <input type="radio" formControlName="gender" name="gender" value="F"> Female
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label for="hire_date" class="control-label"><b>Hire Date</b></label>
+                    </div>
+                    <div class="col-75">
+                        <input type="date" placeholder="Enter Hire Date" formControlName='hire_date' name="hire_date" class="form-control add-input" required>
+                    </div>
+                </div>
+                <br>
+
+                <div class="clearfix">
+                    <button type="button" onclick="document.getElementById('add-modal').style.display='none'" class="cancelbtn">Cancel</button>
+                    <button type="submit" [disabled]="!addForm.valid" class="addbtn">Add</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+</div>
+
+

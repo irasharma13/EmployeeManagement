@@ -1,0 +1,17 @@
+#name {
+    color: #0af;
+    font-size: 32px;
+    float: left;
+    cursor: default;
+    margin-left: 10px;
+    font-family: 'Gill Sans',  sans-serif;
+    font-weight: bold;
+}
+
+#navbar {
+  margin: 0;
+  padding: 20px 10px;
+  overflow: hidden;
+  background-color: #333;
+  opacity: 0.9;
+}

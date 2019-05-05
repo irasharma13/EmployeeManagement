@@ -4,23 +4,24 @@ server:
 security:
   oauth2:
     client:
-      access-token-uri: https://dev-558783.oktapreview.com/oauth2/default/v1/token
-      user-authorization-uri: https://dev-558783.oktapreview.com/oauth2/default/v1/authorize
-      client-id: 0oae5bt4guMx7iZZN356
+      access-token-uri: https://dev-983347.okta.com/oauth2/default/v1/token
+      user-authorization-uri: https://dev-983347.okta.com/oauth2/default/v1/authorize
+      client-id: 0oael4x2cfpxJb1lw356
       scope: openid profile email
     resource:
-      user-info-uri: https://dev-558783.oktapreview.com/oauth2/default/v1/userinfo
-      token-info-uri: https://dev-558783.oktapreview.com/oauth2/default/v1/introspect
+      user-info-uri: https://dev-983347.okta.com/oauth2/default/v1/userinfo
+      token-info-uri: https://dev-983347.okta.com/oauth2/default/v1/introspect
       prefer-token-info: false
 
 spring:
   datasource:
     #SPRING_DATASOURCE_URL environment variable will be something like -> jdbc:sqlserver://MySqlServer\\MyInstance:1433;DatabaseName=MyDbName;
-    url: jdbc:mysql://us-west-1-employeedb.ccw59hvbosnf.us-west-1.rds.amazonaws.com/employee
+    url: jdbc:mysql://employees.cuc6jnhx12ca.us-west-1.rds.amazonaws.com/employees
     username: master
-    password: Irasharma1997
+    password: cmpe172project
     driverClassName: com.mysql.jdbc.Driver
   jpa:
     hibernate.ddl-auto: update
     generate-ddl: true
     show-sql: true
+
