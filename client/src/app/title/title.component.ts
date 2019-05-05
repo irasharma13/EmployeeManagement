@@ -15,6 +15,7 @@ export class TitleComponent implements OnInit {
   employees: Employee[];
   searchInput: String;
   isSearch: boolean = false;
+  titles: String[];
 
   constructor(
     private employeeService: EmployeeService,
@@ -25,7 +26,7 @@ export class TitleComponent implements OnInit {
     this.searchForm = this.fb.group({
       search_title: new FormControl('', Validators.required)
     });
-    console.log(this.employeeService.getAllTitles());
+    this.reloadData();
   }
 
   get search_title() { return this.searchForm.get('search_title') }
@@ -39,6 +40,16 @@ export class TitleComponent implements OnInit {
         this.employees = data;
         this.isSearch = true;
       }, error => console.log(error));
+  }
+
+  reloadData() {
+    console.log('Retreiving employee data');
+    this.employeeService
+      .getAllTitles()
+      .subscribe(titles => {
+        console.log(titles);
+        this.titles = titles;
+      });
   }
 
 }
