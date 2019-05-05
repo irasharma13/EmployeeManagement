@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import { Employee } from "../../models/employee";
+import { Title } from "../../models/title";
 
 @Injectable()
 export class EmployeeService {
@@ -44,6 +45,10 @@ export class EmployeeService {
 
   getAllTitles(): Observable<any> {
     return this.http.get('http://localhost:8080/titles/all');
+  }
+
+  getAllEmpWithTitle(index: number): Observable<any> {
+    return this.http.get(`http://localhost:8080/titles/employee/${index}`);
   }
 
   searchTitle(title: String): Observable<any> {
