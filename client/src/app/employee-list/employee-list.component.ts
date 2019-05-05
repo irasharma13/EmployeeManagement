@@ -109,7 +109,7 @@ export class EmployeeListComponent implements OnInit {
           var old = this.employees;
           this.employees = old.concat(employees);
         }
-        this.employees.concat(employees); 
+        // this.employees.concat(employees); 
         this.index += 50; 
         console.log(this.index);
         console.log(this.employees);

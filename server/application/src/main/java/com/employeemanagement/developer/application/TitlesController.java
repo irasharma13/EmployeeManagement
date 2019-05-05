@@ -40,6 +40,7 @@ class TitlesController {
     private TitlesRepository repository;
     private DepartmentsRepository depRepository;
 	private EmployeesRepository empRepository;
+	public List<Titles> titles = new ArrayList<>();
 
 	public static void main(String[] args) {
         SpringApplication.run(TitlesController.class, args);
@@ -64,28 +65,33 @@ class TitlesController {
     }
 
 	@GetMapping("titles/search/employee/{title}")
-	public ResponseEntity<List<Employees>> searchEmployeeTitle (@PathVariable("title") String title){
+	public ResponseEntity<List<Titles>> searchEmployeeTitle (@PathVariable("title") String title){
 		System.out.println("Finding employees with title: " + title);
 
-		List<Titles> titles = repository.findByTitle(title);
+		this.titles= repository.findByTitle(title);
 		if(titles.size() == 0){
 			System.out.println("Failed to find employee with title: "+ title);
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		// System.out.println(departments.get(0));
-		// String deptNo = departments.get(0).getDeptNo();
-		// List<DepartmentManagers> departmentManager = repository.findByEmployeeIdDeptNo(deptNo);
+		return new ResponseEntity<>(titles, HttpStatus.OK);
+	}
+
+	@GetMapping("titles/employee/{index}")
+	public ResponseEntity<List<Employees>> searchEmployeeTitle (@PathVariable("index") Integer index){
 
 		List<Employees> employees = new ArrayList<>();
 
-		for(int i=0; i<titles.size(); i++){
-			int empNo = titles.get(i).getEmpNo();
+		for(int i=index; i<index+25 && i<titles.size(); i++){
+			int empNo = this.titles.get(i).getEmpNo();
 			Optional<Employees> employee = empRepository.findById(empNo);
 			if (employee.isPresent()){
 				employees.add(employee.get());
 			}
 		}
 
+		if(employees.size() == 0){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<>(employees, HttpStatus.OK);
 	}
 }

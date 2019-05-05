@@ -13,7 +13,7 @@ import { Title } from "../models/title";
 export class TitleComponent implements OnInit {
 
   searchForm: FormGroup;
-  employees: Employee[];
+  employees: Employee[] = [];
   searchInput: String;
   isSearch: boolean = false;
   titles: String[];
@@ -40,7 +40,7 @@ export class TitleComponent implements OnInit {
     this.employeeService.searchTitle(this.searchInput)
       .subscribe(data => {
         console.log(data);
-        this.getEmployees(data);
+        this.getEmployees();
         
       }, error => console.log(error));
   }
@@ -57,19 +57,25 @@ export class TitleComponent implements OnInit {
   }
 
   addMore() {
-    this.index += 50;
-    if(this.index < 300000) {
-      this.reloadData();
+    console.log('here');
+    this.index += 25;
+    if(this.index < 100000) {
+      this.getEmployees();
     }
   }
 
-  getEmployees(title: Title[]) {
+  getEmployees() {
     console.log('Getting employees with provided title');
-    this.employeeService.getAllEmpWithTitle(title, this.index).subscribe(employees =>
+    this.employeeService.getAllEmpWithTitle(this.index).subscribe(employees =>
        {
         console.log('Printing employees with title');
         console.log(employees);
-        this.employees = employees;
+        if(this.employees.length == 0) {
+          this.employees = employees;
+        } else {
+          var old = this.employees;
+          this.employees = old.concat(employees);
+        }
         this.isSearch = true;
        })
   }
