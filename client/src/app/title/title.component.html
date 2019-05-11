@@ -2,7 +2,6 @@
     <input type="text" placeholder="Enter a title name to look for employees with the title" name="search_title" formControlName='search_title' required>
     <button type="submit"><i class="fa fa-search"></i></button>
 </form>
-<br>
 
 <h2 *ngIf="!isSearch" style='color:gray'>Titles</h2>
 <h2 *ngIf="isSearch" style='color:gray'>Employees that are {{this.searchInput}}</h2>
@@ -36,6 +35,6 @@
 </table>
 
 <br>
-<button (click)='addMore()'>View More</button>
+<button (click)='addMore()' style="padding: 5px 10px; font-size: 16px;">View More</button>
 <br>
 

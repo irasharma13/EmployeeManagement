@@ -2,7 +2,6 @@
     <input type="text" placeholder="Search for employees in a department by the department's name" name="search_dept" formControlName='search_dept' required>
     <button type="submit"><i class="fa fa-search"></i></button>
 </form>
-<br>
 
 <h2 *ngIf="!isSearch" style='color:gray'>Departments</h2>
 <h2 *ngIf="isSearch" style='color:gray'>Employees in {{this.searchInput}}</h2>
@@ -34,11 +33,11 @@
     <tbody *ngIf="isSearch">
         <tr *ngFor="let employee of employees">
             <td>{{employee.empNo}}</td>
-            <td>{{employee.birth_date}}</td>
+            <td>{{employee.birth_date.split('T')[0]}}</td>
             <td>{{employee.first_name}}</td>
             <td>{{employee.lastName}}</td>
             <td>{{employee.gender}}</td>
-            <td>{{employee.hire_date}}</td>
+            <td>{{employee.hire_date.split('T')[0]}}</td>
         </tr>
     </tbody>
 </table>

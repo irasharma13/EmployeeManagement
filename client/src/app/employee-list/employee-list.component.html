@@ -6,7 +6,6 @@
     <button type="submit"><i class="fa fa-search"></i></button>
 </form>
 
-<br>
 <h2 style='color:gray'>Employees 
     <i class="add fa fa-plus-circle" title='Click to add an employee' onclick="document.getElementById('add-modal').style.display='block'"></i>
 </h2>
@@ -28,13 +27,14 @@
 
         <tr *ngFor="let employee of employees">
             <td>{{employee.empNo}}</td>
-            <td>{{employee.birth_date}}</td>
+            <td>{{employee.birth_date.split('T')[0]}}</td>
             <td>{{employee.first_name}}</td>
             <td>{{employee.lastName}}</td>
             <td>{{employee.gender}}</td>
-            <td>{{employee.hire_date}}</td>
-            <td (click)="isEdit=true; checkId=employee.empNo;" style="width: 40px; height: 40px; text-align: center; font-size: 20px;">
-                <i class="btn btn-default fa fa-pencil" ></i>
+            <td>{{employee.hire_date.split('T')[0]}}</td>
+            <td style="width: 40px; height: 40px; text-align: center; font-size: 20px;">
+                <i (click)="isEdit=true; checkId=employee.empNo;" class="btn btn-default fa fa-pencil" ></i>
+                <i (click)="isDelete=true; checkId=employee.empNo;" class="btn btn-default fa fa-trash" ></i>
             </td>
 
             <!-- Edit  -->
@@ -42,7 +42,7 @@
 
                 <!-- Modal content -->
                 <div class="modal-content">
-                    <form id='editform' [formGroup]="editForm" (ngSubmit) = "edit(employee.empNo)">
+                    <form id='editform' [formGroup]="editForm" (ngSubmit) = "isEdit=false">
                         <h2 id='modal-header'>Please fill in this form to edit an employee</h2>
                         <div class="form-group container">
                             <div class="row">
@@ -59,7 +59,7 @@
                                         <label for="edit_birth_date" class="control-label"><b>Birth Date</b></label>
                                 </div>
                                 <div class="col-75">
-                                    <input style="cursor:default" type="text" formControlName='edit_birth_date' name="edit_birth_date" class="form-control add-input" readonly placeholder="{{employee.birth_date}}" [(ngModel)]="employee.birth_date">
+                                    <input style="cursor:default" type="text" formControlName='edit_birth_date' name="edit_birth_date" class="form-control add-input" readonly placeholder="{{employee.birth_date.split('T')[0]}}" [(ngModel)]="employee.birth_date.split('T')[0]">
                                 </div>
                             </div>
             
@@ -95,7 +95,16 @@
                                     <label for="edit_hire_date" class="control-label"><b>Hire Date</b></label>
                                 </div>
                                 <div class="col-75">
-                                    <input style="cursor:default" type="text" formControlName='edit_hire_date' name="edit_hire_date" class="form-control add-input" readonly placeholder="{{employee.hire_date}}" [(ngModel)]="employee.hire_date">
+                                    <input style="cursor:default" type="text" formControlName='edit_hire_date' name="edit_hire_date" class="form-control add-input" readonly placeholder="{{employee.hire_date.split(' ')[0]}}" [(ngModel)]="employee.hire_date.split(' ')[0]">
+                                </div>
+                            </div>
+
+                            <div class="row" >
+                                <div class="col-25">
+                                    <label for="edit_hire_date" class="control-label"><b>Department No.</b></label>
+                                </div>
+                                <div class="col-75">
+                                    <input style="cursor:default" type="text" formControlName='edit_dep_no' name="edit_dep_no" class="form-control add-input" value="d002">
                                 </div>
                             </div>
                             <br>
@@ -110,64 +119,41 @@
                 </div>
                 
             </div>
-            <!-- <th  scope="row" colspan="5">
-                <form [formGroup]="editForm" (ngSubmit) = "edit(employee.empNo)">
-                    <input style="float:left; width: 11%;" formControlName='edit_empNo' name="edit_empNo" type="number" placeholder="{{employee.empNo}}" [(ngModel)]="employee.empNo">
-                    <input style="float:left; width: 33%;" formControlName='edit_birth_date' name="edit_birth_date" type="date" placeholder="{{employee.birth_date}}" [(ngModel)]="employee.birth_date">
-                    <input style="float:left; width: 19%;" formControlName='edit_first_name' name="edit_first_name" type="text" placeholder="{{employee.first_name}}" [(ngModel)]="employee.first_name">
-                    <input style="float:left; width: 25%;" formControlName='edit_lastName' name="edit_lastName" type="text" placeholder="{{employee.lastName}}" [(ngModel)]="employee.lastName">
-                    <input style="float:left; width: 25%;" formControlName='edit_gender' name="edit_gender" type="text" placeholder="{{employee.gender}}" [(ngModel)]="employee.gender">
-                    <input style="float:left; width: 33%;" formControlName='edit_hire_date' name="edit_hire_date" type="date" placeholder="{{employee.hire_date}}" [(ngModel)]="employee.hire_date">
-                    <div style="margin-left: 50%"> 
-                        <button type="submit" [disabled]="!editForm.valid" class="addbtn" style="margin-right:30px; width: 60px; height: 40px; text-align: center;">Save</button>
-                        <button (click)="isEdit = false; checkID = null;" class="cancelbtn" style="margin-right:30px; width: 80px; height: 40px; text-align: center;">Cancel</button>
-                    </div>
-                </form>
-            </th> -->
 
+            <!-- Delete Modal -->
+            <div style='display: block' id="delete-modal" class="modal" *ngIf='isDelete && checkId == employee.empNo'>
 
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <form id='deleteform' [formGroup]="deleteForm" (ngSubmit) = "isDelete=false">
+                        <h2 id='modal-header'>When is {{employee.first_name}} {{employee.lastName}}'s last day?</h2>
+                        <div class="form-group container">
+                            <div class="row">
+                                <div class="col-25" style="text-align:right">
+                                    <label for="lastDay" class="control-label"><b>Last Day:</b></label>
+                                </div>
+                                <div class="col-50">
+                                    <input style="cursor:default" type="date" class="form-control add-input" formControlName='lastDay' name="lastDay" required>
+                                </div>
+                                <div class="col-25"></div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="clearfix">
+                                    <button type="button" (click)="isDelete=false" class="cancelbtn">Cancel</button>
+                                    <button type="submit" [disabled]="!deleteForm.valid" class="addbtn">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </tr>
         
     </tbody>
-    <!-- <tbody>
-
-        <tr>
-            <td>123456</td>
-            <td>09/12/1979</td>
-            <td>John</td>
-            <td>Doe</td>
-            <td>M</td>
-            <td>1999</td>
-            
-        </tr>
-
-        <tr>
-            <td>234567</td>
-            <td>12/02/1983</td>
-            <td>Jane</td>
-            <td>Doe</td>
-            <td>F</td>
-            <td>2005</td>
-            <td *ngIf="!isEdit || checkID != 1">
-                    <button (click)="isEdit=true;checkID=1;" class="btn btn-default" style="margin-right:30px; width: 40px; height: 40px; text-align: center;"><i class="fa fa-pencil"></i></button>
-                </td>
-
-        </tr>
-
-        <tr>
-            <td>345678</td>
-            <td>03/18/1989</td>
-            <td>Mary</td>
-            <td>Smith</td>
-            <td>F</td>
-            <td>2014</td>
-
-        </tr>
-        
-    </tbody> -->
 </table>
 <br>
-<button (click)='addMore()'>View More</button>
+<button (click)='addMore()' style="padding: 5px 10px; font-size: 16px;">View More</button>
 <br>
 
 <!-- The Modal -->
@@ -232,11 +218,20 @@
                         <input type="date" placeholder="Enter Hire Date" formControlName='hire_date' name="hire_date" class="form-control add-input" required>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-25">
+                        <label for="dep_no" class="control-label"><b>Department No.</b></label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" placeholder="Enter the employee's department no." formControlName='dep_no' name="dep_no" class="form-control add-input" required>
+                    </div>
+                </div>
                 <br>
 
                 <div class="clearfix">
                     <button type="button" onclick="document.getElementById('add-modal').style.display='none'" class="cancelbtn">Cancel</button>
-                    <button type="submit" [disabled]="!addForm.valid" class="addbtn">Add</button>
+                    <button type="submit" [disabled]="!addForm.valid" class="addbtn" onclick="document.getElementById('add-modal').style.display='none'">Add</button>
                 </div>
             </div>
         </form>

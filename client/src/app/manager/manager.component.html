@@ -2,7 +2,6 @@
     <input type="text" placeholder="Check if a employee is a manager by his/her name" name="search_manager" formControlName='search_manager' required>
     <button type="submit"><i class="fa fa-search"></i></button>
 </form>
-<br>
 
 <h2 *ngIf="!isSearch" style='color:gray'>Managers</h2>
 <h2 *ngIf="isSearch" style='color:gray'>Managers in {{this.searchInput}}</h2>
@@ -38,11 +37,11 @@
     <tbody *ngIf="isSearch">
         <tr *ngFor="let employee of employees">
             <td>{{employee.empNo}}</td>
-            <td>{{employee.birth_date}}</td>
+            <td>{{employee.birth_date.split('T')[0]}}</td>
             <td>{{employee.first_name}}</td>
             <td>{{employee.lastName}}</td>
             <td>{{employee.gender}}</td>
-            <td>{{employee.hire_date}}</td>
+            <td>{{employee.hire_date.split('T')[0]}}</td>
         </tr>
     </tbody>
 </table>
