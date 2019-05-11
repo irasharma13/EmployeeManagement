@@ -77,7 +77,7 @@ class DepartmentEmployeesController {
 
 		List<Employees> deptEmployee = new ArrayList<>();
 
-		for(int i=0; i<departmentEmployee.size(); i++){
+		for(int i=0; i<50; i++){
 			int empNo = departmentEmployee.get(i).getEmployeeId().getEmpNo();
 			Optional<Employees> employee = empRepository.findById(empNo);
 			if (employee.isPresent()){

@@ -14,13 +14,18 @@ import { OAuthService } from 'angular-oauth2-oidc';
   styleUrls: ["./employee-list.component.css"]
 })
 export class EmployeeListComponent implements OnInit {
+  
   employees: Employee[] = [];
   isAuthenticated: boolean;
   isEdit:boolean = false;
+  isDelete: boolean = false;
   checkId:Number;
+  
   addForm: FormGroup;
   editForm: FormGroup;
+  deleteForm: FormGroup;
   searchForm: FormGroup;
+  
   index =0;
 
   myRecaptcha = new FormControl(false);
@@ -51,28 +56,14 @@ export class EmployeeListComponent implements OnInit {
       first_name: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
       gender: new FormControl('', Validators.required),
-      hire_date: new FormControl('', Validators.required)
+      hire_date: new FormControl('', Validators.required),
+      depNo: new FormControl('', Validators.required)
     });
-    // this.isAuthenticated = true;
-    // this.isAuthenticated = await this.oktaAuth.isAuthenticated();
-    // console.log(this.isAuthenticated);
-    // if(this.isAuthenticated) { 
-    //   this.reloadData();
-    // } //else {
-    // //   //this.oktaAuth.loginRedirect();
-    // // }
-
-    // this.oktaAuth.$authenticationState.subscribe(
-    //   (isAuthenticated: boolean)  => {
-    //     this.isAuthenticated = isAuthenticated;
-    //     console.log(this.isAuthenticated);
-    //     if(this.isAuthenticated) { 
-    //       this.reloadData();
-    //     } //else {
-    //     //   //this.oktaAuth.loginRedirect();
-    //     // }
     
-    //   });
+    this.deleteForm = this.fb.group({
+      lastDay: new FormControl('', Validators.required)
+    });
+
     const claims = this.oauthService.getIdentityClaims();
     if (!claims) {
       alert('An error occured. You need to login to access this page.');
@@ -97,6 +88,8 @@ export class EmployeeListComponent implements OnInit {
   get hire_date() { return this.addForm.get('hire_date') }
 
   get search_emp() { return this.searchForm.get('search_emp') }
+
+  get lastDay() { return this.deleteForm.get('lastDay') }
 
   reloadData() {
     console.log('Retreiving employee data');

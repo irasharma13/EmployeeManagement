@@ -57,7 +57,6 @@ export class TitleComponent implements OnInit {
   }
 
   addMore() {
-    console.log('here');
     this.index += 25;
     if(this.index < 100000) {
       this.getEmployees();
@@ -69,13 +68,13 @@ export class TitleComponent implements OnInit {
     this.employeeService.getAllEmpWithTitle(this.index).subscribe(employees =>
        {
         console.log('Printing employees with title');
-        console.log(employees);
         if(this.employees.length == 0) {
           this.employees = employees;
         } else {
           var old = this.employees;
           this.employees = old.concat(employees);
         }
+        console.log(this.employees);
         this.isSearch = true;
        })
   }
